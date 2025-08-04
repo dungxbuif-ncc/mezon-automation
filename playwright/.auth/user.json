@@ -1,0 +1,203 @@
+{
+  "cookies": [
+    {
+      "name": "_csrf",
+      "value": "Nd3Nqmys0i4PrGZgaT43ZEDrjWPT0upj",
+      "domain": "account.mezon.ai",
+      "path": "/authentication",
+      "expires": 1754378475.483615,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.1.1055442332.1754292074",
+      "domain": ".nccsoft.vn",
+      "path": "/",
+      "expires": 1788852076.717105,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_gcl_au",
+      "value": "1.1.640919915.1754292074",
+      "domain": ".nccsoft.vn",
+      "path": "/",
+      "expires": 1762068074,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "IDE",
+      "value": "AHWqTUn2mMRe4e78XuoerUTayViTV-6Sxpu8u5RSta23lHkk5-mTMy4Xhm8iahdG",
+      "domain": ".doubleclick.net",
+      "path": "/",
+      "expires": 1788852075.095556,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "mezon_login_csrf_4211184862",
+      "value": "MTc1NDI5MjA3NXx0cjYtbkxGdS1mekZXWGpmTWhka3J2d0hRY2NCcDhqcDlaSndpRV9QMkkyLVR1SHFqMHY4ZnM0bUJXNnhzaHItVXVxcHpmNDZsMmNyZ1VpZWVqUV9mUUg2WmpyVXBGQkNCUkdVQ3oxVk9GN2YzNC1BaDAwUFVLZ3Vzb3E5fN9aarvRmo6pdP16RJvoS0Q7ULAiLK7d48Ioue7Qghnt",
+      "domain": ".oauth2.mezon.ai",
+      "path": "/",
+      "expires": 1754293875.230852,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.1.2135513105.1754292076",
+      "domain": ".mezon.ai",
+      "path": "/",
+      "expires": 1788852075.784016,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ga_4KGWS5XG4K",
+      "value": "GS2.1.s1754292075$o1$g0$t1754292075$j60$l0$h0",
+      "domain": ".mezon.ai",
+      "path": "/",
+      "expires": 1788852075.793549,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ga_9SD8R7Z8TJ",
+      "value": "GS2.1.s1754292073$o1$g1$t1754292076$j57$l0$h0",
+      "domain": ".nccsoft.vn",
+      "path": "/",
+      "expires": 1788852076.716872,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://dev-mezon.nccsoft.vn",
+      "localStorage": [
+        {
+          "name": "persist:notichannelcategorysetting",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"byClans\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:gifsstickersemojis",
+          "value": "{\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"valueInputToCheckHandleSearchState\":\"\\\"\\\"\",\"placeHolder\":\"\\\"Find the perfect emoji\\\"\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:listchannelbyusers",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:topicdiscussions",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"isPrivate\":\"0\",\"currentTopicInitMessage\":\"null\",\"openTopicMessageState\":\"false\",\"channelTopics\":\"{}\",\"clanTopics\":\"{}\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:listusersbyuserid",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:pinmessages",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"byChannels\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"jumpPinMessageId\":\"\\\"\\\"\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:categories",
+          "value": "{\"byClans\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"ctrlKFocusChannel\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:apps",
+          "value": "{\"theme\":\"\\\"light\\\"\",\"loadingStatus\":\"\\\"loaded\\\"\",\"initialParams\":\"{}\",\"initialPath\":\"\\\"/\\\"\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:channels",
+          "value": "{\"byClans\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"socketStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:defaultnotificationcategory",
+          "value": "{\"byClans\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:defaultnotificationclan",
+          "value": "{\"byClans\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:suggestionemoji",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"emojiPicked\":\"\\\"\\\"\",\"emojiObjPicked\":\"{}\",\"emojiSuggestionListStatus\":\"false\",\"keyCodeFromKeyBoardState\":\"1000\",\"textToSearchEmojiSuggestion\":\"\\\"\\\"\",\"addEmojiAction\":\"false\",\"shiftPressed\":\"false\",\"fromTopic\":\"false\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:eventmanagement",
+          "value": "{\"byClans\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"chooseEvent\":\"null\",\"creatingStatus\":\"\\\"not loaded\\\"\",\"privateMeetingRooms\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "_gcl_ls",
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"creationTimeMs\":1754292073647},\"expires\":1762068073647}}"
+        },
+        {
+          "name": "persist:channelApp",
+          "value": "{\"position\":\"{\\\"x\\\":100,\\\"y\\\":100}\",\"size\":\"{\\\"width\\\":430,\\\"height\\\":630}\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:channelmeta",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:allUsersByAddChannel",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"cacheByChannels\":\"{}\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "current-theme",
+          "value": "sunrise"
+        },
+        {
+          "name": "persist:hashtagdm",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"byDirectIds\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:auth",
+          "value": "{\"loadingStatus\":\"\\\"not loaded\\\"\",\"session\":\"null\",\"isLogin\":\"false\",\"isRegistering\":\"\\\"not loaded\\\"\",\"loadingStatusEmail\":\"\\\"not loaded\\\"\",\"redirectUrl\":\"null\",\"activeAccount\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:clans",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"clans\":\"[]\",\"error\":\"null\",\"clanMetadata\":\"{\\\"ids\\\":[],\\\"entities\\\":{}}\",\"clansOrder\":\"[]\",\"clanGroups\":\"{\\\"ids\\\":[],\\\"entities\\\":{}}\",\"clanGroupOrder\":\"[]\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:settingSticker",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:ONBOARDING_FEATURE_KEY",
+          "value": "{\"keepAnswers\":\"{}\",\"answerByClanId\":\"{}\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:threads",
+          "value": "{\"loadingStatus\":\"\\\"loaded\\\"\",\"entities\":\"{}\",\"ids\":\"[]\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:emojiRecent",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"lastEmojiRecent\":\"{\\\"emoji_recents_id\\\":\\\"0\\\"}\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:compose",
+          "value": "{\"byChannelId\":\"{}\",\"lastUpdatedChannelId\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:listpermissionroleschannel",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"channelPermissions\":\"[]\",\"error\":\"null\",\"permission\":\"null\",\"cacheByChannels\":\"{}\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "persist:rolesclan",
+          "value": "{\"ids\":\"[]\",\"entities\":\"{}\",\"byClans\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        }
+      ]
+    }
+  ]
+}
