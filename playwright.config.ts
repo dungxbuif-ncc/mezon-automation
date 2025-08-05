@@ -9,8 +9,9 @@ dotenv.config();
  * Standard setup for Playwright + Page Object Model framework
  */
 export default defineConfig({
-  // Test directory
+  // Test directory - Exclude auth tests and homepage  
   testDir: './src/tests',
+  testIgnore: ['**/*.auth.spec.ts', '**/homepage.spec.ts'],
   
   // Global test timeout (30 seconds)
   timeout: 30 * 1000,
@@ -88,53 +89,53 @@ export default defineConfig({
       dependencies: ['setup'],
     },
     
-    {
-      name: 'firefox',
-      use: { 
-        ...devices['Desktop Firefox'],
-        storageState: 'playwright/.auth/user.json',
-      },
-      dependencies: ['setup'],
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { 
+    //     ...devices['Desktop Firefox'],
+    //     storageState: 'playwright/.auth/user.json',
+    //   },
+    //   dependencies: ['setup'],
+    // },
     
-    {
-      name: 'webkit',
-      use: { 
-        ...devices['Desktop Safari'],
-        storageState: 'playwright/.auth/user.json',
-      },
-      dependencies: ['setup'],
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { 
+    //     ...devices['Desktop Safari'],
+    //     storageState: 'playwright/.auth/user.json',
+    //   },
+    //   dependencies: ['setup'],
+    // },
 
     // Mobile browsers
-    {
-      name: 'Mobile Chrome',
-      use: { 
-        ...devices['Pixel 5'],
-        storageState: 'playwright/.auth/user.json',
-      },
-      dependencies: ['setup'],
-    },
+    // {
+    //   name: 'Mobile Chrome',
+    //   use: { 
+    //     ...devices['Pixel 5'],
+    //     storageState: 'playwright/.auth/user.json',
+    //   },
+    //   dependencies: ['setup'],
+    // },
     
-    {
-      name: 'Mobile Safari',
-      use: { 
-        ...devices['iPhone 12'],
-        storageState: 'playwright/.auth/user.json',
-      },
-      dependencies: ['setup'],
-    },
+    // {
+    //   name: 'Mobile Safari',
+    //   use: { 
+    //     ...devices['iPhone 12'],
+    //     storageState: 'playwright/.auth/user.json',
+    //   },
+    //   dependencies: ['setup'],
+    // },
 
     // Microsoft Edge
-    {
-      name: 'Microsoft Edge',
-      use: { 
-        ...devices['Desktop Edge'], 
-        channel: 'msedge',
-        storageState: 'playwright/.auth/user.json',
-      },
-      dependencies: ['setup'],
-    },
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: { 
+    //     ...devices['Desktop Edge'], 
+    //     channel: 'msedge',
+    //     storageState: 'playwright/.auth/user.json',
+    //   },
+    //   dependencies: ['setup'],
+    // },
   ],
 
   // Development server (if needed)

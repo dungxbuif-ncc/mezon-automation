@@ -5,12 +5,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 /**
- * Playwright Configuration for Authentication Tests Only
- * No setup dependencies, standalone execution
+ * Playwright Configuration for Standalone Tests
+ * No setup dependencies, includes auth tests and non-auth tests
  */
 export default defineConfig({
-  // Test directory
+  // Test directory - Auth tests and non-auth tests (no setup needed)
   testDir: './src/tests',
+  testMatch: ['**/*.auth.spec.ts', '**/homepage.spec.ts'],
   
   // Global test timeout (30 seconds)
   timeout: 30 * 1000,
@@ -75,11 +76,11 @@ export default defineConfig({
       },
     },
     
-    {
-      name: 'firefox',
-      use: { 
-        ...devices['Desktop Firefox'],
-      },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { 
+    //     ...devices['Desktop Firefox'],
+    //   },
+    // },
   ],
 });

@@ -90,19 +90,18 @@ export class HomePage extends BasePage {
   }
 
   /**
-   * Navigate to Signup/Login page
+   * Navigate to Signup/Login ∂
    */
   async navigateToSignupLogin(): Promise<void> {
     await this.clickLogin();
   }
 
   /**
-   * Click on Login button to navigate to login page
+   * Click on Login button to navigate to login ∂
    */
   async clickLogin(): Promise<void> {
     await this.page.locator(this.selectors.loginButton).click();
-    // Wait for navigation to complete
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState('networkidle');  
   }
 
   /**
