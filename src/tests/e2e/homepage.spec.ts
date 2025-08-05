@@ -31,7 +31,7 @@ test.describe('Homepage Tests', () => {
     await homePage.verifyHomePageLoaded();
     
     // Verify page title
-    await homePage.assertPageTitle('Automation Exercise');
+    await homePage.assertPageTitle("Mezon");
     
     // Verify current URL
     await homePage.assertCurrentURL('/');
@@ -139,7 +139,7 @@ test.describe('Homepage Tests', () => {
     
     // Verify page still loads correctly after refresh
     await homePage.verifyHomePageLoaded();
-    await homePage.assertPageTitle('Automation Exercise');
+    await homePage.assertPageTitle('Mezon');
   });
 
   test('should verify page navigation history @regression', async () => {

@@ -181,12 +181,12 @@ export const SUCCESS_MESSAGES = {
  * Page titles constants
  */
 export const PAGE_TITLES = {
-  HOME: 'Automation Exercise',
-  LOGIN: 'Automation Exercise - Signup / Login',
-  REGISTRATION: 'Automation Exercise - Signup',
-  ACCOUNT_CREATED: 'Automation Exercise - Account Created',
-  CONTACT_US: 'Automation Exercise - Contact Us',
-  PRODUCTS: 'Automation Exercise - All Products',
+  HOME: 'Mezon',
+  LOGIN: 'Sign In - Mezon Account',
+  REGISTRATION: 'Sign Up - Mezon Account',
+  ACCOUNT_CREATED: 'Account Created!',
+  CONTACT_US: 'Mezon - Contact Us',
+  PRODUCTS: 'Mezon - All Products',
 };
 
 /**

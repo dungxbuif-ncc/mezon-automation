@@ -38,10 +38,6 @@ export interface EnvironmentConfig {
  * Website configurations for different test targets
  */
 export const WEBSITE_CONFIGS = {
-  AUTOMATION_EXERCISE: {
-    baseURL: 'https://dev-mezon.nccsoft.vn',
-    name: 'Automation Exercise',
-  },
   MEZON: {
     baseURL: 'https://dev-mezon.nccsoft.vn',
     name: 'Mezon Development',

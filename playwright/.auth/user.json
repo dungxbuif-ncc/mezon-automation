@@ -2,80 +2,80 @@
   "cookies": [
     {
       "name": "_csrf",
-      "value": "Nd3Nqmys0i4PrGZgaT43ZEDrjWPT0upj",
+      "value": "V2AC6tApIkxGijxPJFyLUqsIE9MrVZtj",
       "domain": "account.mezon.ai",
       "path": "/authentication",
-      "expires": 1754378475.483615,
+      "expires": 1754441198.712467,
       "httpOnly": true,
       "secure": true,
       "sameSite": "Strict"
     },
     {
       "name": "_ga",
-      "value": "GA1.1.1055442332.1754292074",
+      "value": "GA1.1.165786516.1754354795",
       "domain": ".nccsoft.vn",
       "path": "/",
-      "expires": 1788852076.717105,
+      "expires": 1788914800.020074,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "_gcl_au",
-      "value": "1.1.640919915.1754292074",
+      "value": "1.1.295268826.1754354795",
       "domain": ".nccsoft.vn",
       "path": "/",
-      "expires": 1762068074,
+      "expires": 1762130795,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "IDE",
-      "value": "AHWqTUn2mMRe4e78XuoerUTayViTV-6Sxpu8u5RSta23lHkk5-mTMy4Xhm8iahdG",
+      "value": "AHWqTUkQ-IQweJJ3fe2i_-4O-wBdo2-f4MvKnb2ZWZz1_REUC_HAP9v0bDhi0ZNs",
       "domain": ".doubleclick.net",
       "path": "/",
-      "expires": 1788852075.095556,
+      "expires": 1788914798.38034,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "mezon_login_csrf_4211184862",
-      "value": "MTc1NDI5MjA3NXx0cjYtbkxGdS1mekZXWGpmTWhka3J2d0hRY2NCcDhqcDlaSndpRV9QMkkyLVR1SHFqMHY4ZnM0bUJXNnhzaHItVXVxcHpmNDZsMmNyZ1VpZWVqUV9mUUg2WmpyVXBGQkNCUkdVQ3oxVk9GN2YzNC1BaDAwUFVLZ3Vzb3E5fN9aarvRmo6pdP16RJvoS0Q7ULAiLK7d48Ioue7Qghnt",
+      "value": "MTc1NDM1NDc5OHxPV2pDcHRLV29pYzF4NnVnUjZ5blJwaGJtQlBkRC1jN21zX2R2b0Z2endBZVdMQVRtX0ZVTmJVTkZ0TmVwUzZJVkNHZ0hta25NaTNCT0pFbEVmRTZyelBLYy1EWVBiNXhvWUpZak5NUG5DZkdjWEM3bzlWWWYzS2xJTjBEfKWdm46WCYrr1UkqHQlMcvwLCnb9b99ZDCMovw5k3-Gl",
       "domain": ".oauth2.mezon.ai",
       "path": "/",
-      "expires": 1754293875.230852,
+      "expires": 1754356598.47805,
       "httpOnly": true,
       "secure": true,
       "sameSite": "Lax"
     },
     {
       "name": "_ga",
-      "value": "GA1.1.2135513105.1754292076",
+      "value": "GA1.1.1469340282.1754354799",
       "domain": ".mezon.ai",
       "path": "/",
-      "expires": 1788852075.784016,
+      "expires": 1788914799.062224,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "_ga_4KGWS5XG4K",
-      "value": "GS2.1.s1754292075$o1$g0$t1754292075$j60$l0$h0",
+      "value": "GS2.1.s1754354799$o1$g0$t1754354799$j60$l0$h0",
       "domain": ".mezon.ai",
       "path": "/",
-      "expires": 1788852075.793549,
+      "expires": 1788914799.07274,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "_ga_9SD8R7Z8TJ",
-      "value": "GS2.1.s1754292073$o1$g1$t1754292076$j57$l0$h0",
+      "value": "GS2.1.s1754354794$o1$g1$t1754354800$j54$l0$h0",
       "domain": ".nccsoft.vn",
       "path": "/",
-      "expires": 1788852076.716872,
+      "expires": 1788914800.01996,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -139,7 +139,7 @@
         },
         {
           "name": "_gcl_ls",
-          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"creationTimeMs\":1754292073647},\"expires\":1762068073647}}"
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"creationTimeMs\":1754354794996},\"expires\":1762130794996}}"
         },
         {
           "name": "persist:channelApp",
