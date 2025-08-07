@@ -1,6 +1,6 @@
 import { type Page, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { MEZON_PAGE_TITLES, MEZON_MESSAGES, type MezonTestUser } from '../data/static/TestUsers';
+import { type MezonTestUser } from '../data/static/TestUsers';
 import { WEBSITE_CONFIGS } from '../config/environment';
 
 export class LoginPage extends BasePage {
@@ -9,10 +9,10 @@ export class LoginPage extends BasePage {
     welcomeMessage: 'text=So glad to meet you again!',
     enterEmailText: 'text=Enter your email to login',
     
-    emailInput: 'input[placeholder="Email address"], input[type="email"], input[name="email"]',
-    sendOtpButton: 'button:has-text("Send OTP")',
-    otpInput: 'input[id="otp"], input[name="otp"], input[placeholder="OTP"], input[type="number"], input[type="text"]:visible',
-    loginButton: 'button[id="sendOtpBtn"], button:has-text("Verify OTP"), button:has-text("Login"), button:has-text("Đăng nhập"), button[type="submit"], button:has-text("Verify"), button:has-text("Xác nhận"), [data-testid="login-btn"]',
+    emailInput: 'input#inputEmail, input[placeholder="Email address"], input[type="email"], input[name="email"]',
+    sendOtpButton: 'button#sendOtpBtn, button:has-text("Send OTP")',
+    otpInput: 'input#otp, input[name="otp"], input[placeholder="OTP"], input[type="number"]',
+    loginButton: 'button[id="sendOtpBtn"], button:has-text("Verify OTP"), button:has-text("Login"), button:has-text("Đăng nhập"), button[type="submit"], button:has-text("Verify"), button:has-text("Xác nhận"), button[aria-label*="Verify OTP"], button[aria-label*="Verify OTP code"], [data-testid="login-btn"]',
     
     loginWithPasswordLink: 'text=Login with Email & Password, text=Đăng nhập bằng mật khẩu, a:has-text("Email"), a:has-text("Password")',
     passwordInput: 'input[type="password"]',
@@ -32,6 +32,10 @@ export class LoginPage extends BasePage {
     super(page, WEBSITE_CONFIGS.MEZON.baseURL);
   }
 
+  async navigate(): Promise<void> {
+    await super.navigate('/login');
+  }
+
   async navigateToLoginPage(): Promise<void> {
     await this.page.goto(`${this.baseURL}/login`);
     await this.waitForPageLoad();
@@ -39,71 +43,68 @@ export class LoginPage extends BasePage {
 
   async waitForPageLoad(): Promise<void> {
     await this.page.waitForLoadState('networkidle');
-    // Simple wait for page to stabilize
     await this.page.waitForTimeout(3000);
   }
 
   async verifyLoginPageElements(): Promise<void> {
-    // Verify core login elements that should definitely be present
     await expect(this.page.locator(this.selectors.loginTitle)).toBeVisible();
     await expect(this.page.locator(this.selectors.emailInput)).toBeVisible();
     await expect(this.page.locator(this.selectors.sendOtpButton)).toBeVisible();
   }
 
   async enterEmail(email: string): Promise<void> {
-    await this.page.locator(this.selectors.emailInput).clear();
-    await this.page.locator(this.selectors.emailInput).fill(email);
+    const emailInput = this.page.locator(this.selectors.emailInput);
+    await emailInput.waitFor({ state: 'visible', timeout: 10000 });
+    await emailInput.clear();
+    await emailInput.fill(email);
   }
 
   async clickSendOtp(): Promise<void> {
-    const sendOtpButton = this.page.locator('button:has-text("Send OTP")');
+    const sendOtpButton = this.page.locator(this.selectors.sendOtpButton);
     
     await sendOtpButton.waitFor({ state: 'visible', timeout: 10000 });
-    
     await sendOtpButton.click();
     
     await this.page.waitForLoadState('networkidle');
+    await this.page.waitForTimeout(5000); // Wait for page redirect and form to load
   }
 
   async enterOtp(otp: string): Promise<void> {
-    await this.page.waitForTimeout(2000);
+    // Wait for page to fully load after redirect
+    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForTimeout(3000);
     
+    // Try multiple OTP selectors
     const otpSelectors = [
-      'input[placeholder*="OTP"]',
-      'input[placeholder*="otp"]',
-      'input[placeholder*="code"]', 
-      'input[placeholder*="Code"]',
-      'input[placeholder*="Nhập"]',
-      'input[name="otp"]',
-      'input[id="otp"]',
-      'input[name="code"]',
-      'input[id="code"]',
-      '.otp-input input',
-      '[data-testid="otp-input"]',
-      'input[type="text"]:visible',
-      'input[type="number"]:visible',
-      '.auth-form input:visible',
-      '.login-form input:visible'
+      'input#otp',
+      'input[name="otp"]', 
+      'input[placeholder="OTP"]',
+      'input[type="number"]'
     ];
-
+    
     let otpInput = null;
     for (const selector of otpSelectors) {
       try {
-        otpInput = this.page.locator(selector);
-        if (await otpInput.isVisible()) {
+        const input = this.page.locator(selector);
+        if (await input.isVisible()) {
+          otpInput = input;
+          console.log('Found OTP input with selector:', selector);
           break;
         }
-      } catch (error) {
+      } catch {
+        console.log('Selector failed:', selector);
         continue;
       }
     }
-
-    if (otpInput && await otpInput.isVisible()) {
-      await otpInput.clear();
-      await otpInput.fill(otp);
-    } else {
-      throw new Error('OTP input field not found or not visible');
+    
+    if (!otpInput) {
+      // Take screenshot for debugging
+      await this.page.screenshot({ path: 'otp-debug.png', fullPage: true });
+      throw new Error('OTP input field not found after trying all selectors');
     }
+    
+    await otpInput.clear();
+    await otpInput.fill(otp);
   }
 
   async clickLogin(): Promise<void> {
@@ -118,6 +119,14 @@ export class LoginPage extends BasePage {
     
     await loginButton.waitFor({ state: 'visible', timeout: 10000 });
     await loginButton.click();
+    await this.page.waitForLoadState('networkidle');
+  }
+
+  async clickVerifyOtp(): Promise<void> {
+    const verifyOtpButton = this.page.locator('button#sendOtpBtn, button:has-text("Verify OTP"), button[onclick*="handleSendToken"], button:has-text("Verify"), button:has-text("Xác nhận"), button[aria-label*="Verify OTP"], button[aria-label*="Verify OTP code"]');
+    
+    await verifyOtpButton.waitFor({ state: 'visible', timeout: 10000 });
+    await verifyOtpButton.click();
     await this.page.waitForLoadState('networkidle');
   }
 
@@ -144,24 +153,21 @@ export class LoginPage extends BasePage {
       'button:visible:last-of-type'
     ];
     
-    let submitted = false;
+
     for (const selector of submitSelectors) {
       try {
         const submitBtn = this.page.locator(selector);
         if (await submitBtn.isVisible() && await submitBtn.isEnabled()) {
           await submitBtn.click();
-          submitted = true;
           break;
         }
-      } catch (error) {
+      } catch {
         continue;
       }
     }
     
     await this.page.waitForLoadState('networkidle');
     await this.page.waitForTimeout(3000);
-    
-    const finalUrl = this.page.url();
   }
 
   async switchToPasswordLogin(): Promise<void> {
@@ -225,7 +231,7 @@ export class LoginPage extends BasePage {
           qrVisible = true;
           break;
         }
-      } catch (error) {
+      } catch {
         continue;
       }
     }
@@ -240,23 +246,20 @@ export class LoginPage extends BasePage {
   async verifyOnLoginPage(): Promise<void> {
     const currentUrl = this.getCurrentUrl();
     expect(currentUrl).toMatch(/login|authentication|signin|mezon/);
-    // Just verify we're on some kind of auth page
-    console.log('Current URL:', currentUrl);
   }
 
   async clearAllFields(): Promise<void> {
     try {
       await this.page.locator(this.selectors.emailInput).clear();
-    } catch (error) {
+        } catch {
     }
-    
+
     try {
-      // Try to clear OTP field if it exists
       const otpInput = this.page.locator(this.selectors.otpInput);
       if (await otpInput.isVisible()) {
         await otpInput.clear();
       }
-    } catch (error) {
+    } catch {
     }
   }
 
@@ -264,7 +267,7 @@ export class LoginPage extends BasePage {
     await this.loginWithPassword(email, password);
   }
 
-  async fillLoginForm(email: string, password: string): Promise<void> {
+  async fillLoginForm(email: string): Promise<void> {
     await this.enterEmail(email);
   }
 
@@ -287,7 +290,8 @@ export class LoginPage extends BasePage {
   async verifySignupSectionVisible(): Promise<void> {
   }
 
-  async fillSignupForm(name: string, email: string): Promise<void> {
+  async fillSignupForm(): Promise<void> {
+    // Signup form not implemented
   }
 
   async clickSignupButton(): Promise<void> {

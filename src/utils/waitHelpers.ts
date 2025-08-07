@@ -101,9 +101,6 @@ export async function waitForTextToDisappear(
   await locator.waitFor({ state: 'hidden', timeout });
 }
 
-/**
- * Wait for element to be clickable (visible and enabled)
- */
 export async function waitForClickable(
   page: Page, 
   selector: string, 
@@ -126,9 +123,6 @@ export async function waitForClickable(
   return locator;
 }
 
-/**
- * Wait for spinner/loading indicator to disappear
- */
 export async function waitForLoadingToComplete(
   page: Page, 
   loadingSelector: string = '.loading, .spinner, [data-loading]',
@@ -137,13 +131,9 @@ export async function waitForLoadingToComplete(
   try {
     await waitForElementToHide(page, loadingSelector, timeout);
   } catch {
-    // Loading indicator might not exist, which is fine
   }
 }
 
-/**
- * Wait with custom condition
- */
 export async function waitForCondition(
   page: Page,
   condition: () => Promise<boolean> | boolean,
@@ -168,9 +158,6 @@ export async function waitForCondition(
   throw new Error(`Condition not met within ${timeout}ms`);
 }
 
-/**
- * Wait for element count to match expected value
- */
 export async function waitForElementCount(
   page: Page,
   selector: string,
@@ -187,9 +174,7 @@ export async function waitForElementCount(
   );
 }
 
-/**
- * Wait for AJAX requests to complete
- */
+
 export async function waitForAjaxRequests(
   page: Page,
   timeout: number = 30000
@@ -210,9 +195,6 @@ export async function waitForAjaxRequests(
   );
 }
 
-/**
- * Smart wait - combines multiple wait strategies
- */
 export async function smartWait(
   page: Page,
   options: {
@@ -250,9 +232,6 @@ export async function smartWait(
   }
 }
 
-/**
- * Retry function with exponential backoff
- */
 export async function retryWithBackoff<T>(
   fn: () => Promise<T>,
   maxRetries: number = 3,

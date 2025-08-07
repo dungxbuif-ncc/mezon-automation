@@ -1,8 +1,4 @@
-/**
- * Định nghĩa các types chung cho automation framework
- */
 
-// User types
 export interface User {
   id: string;
   email: string;
@@ -13,10 +9,10 @@ export interface User {
 }
 
 export enum UserRole {
-  ADMIN = "admin",
-  USER = "user",
-  MODERATOR = "moderator",
-  GUEST = "guest"
+  // ADMIN = "admin",
+  // USER = "user", 
+  // MODERATOR = "moderator",
+  // GUEST = "guest"
 }
 
 // Test data types
@@ -39,7 +35,7 @@ export interface ComponentLocators {
 }
 
 // API types
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   status: number;
   data: T;
   message?: string;

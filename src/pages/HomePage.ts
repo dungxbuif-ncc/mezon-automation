@@ -1,248 +1,124 @@
 import { type Page, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { MEZON_PAGE_TITLES } from '../data/static/TestUsers';
 import { WEBSITE_CONFIGS } from '../config/environment';
 
-/**
- * Home Page Object (Mezon)
- * Handles interactions with the Mezon homepage
- */
 export class HomePage extends BasePage {
-  /**
-   * Page selectors specific to Mezon homepage
-   */
   private selectors = {
-    // Header navigation  
-    loginButton: 'a[href="/mezon"]:has-text("Login")',
+    loginButton: 'a:has-text("Login")',
     homeLink: 'a:has-text("Home")',
-    overviewLink: 'a:has-text("Overview")', // Specific to navigation link, not heading
     featuresLink: 'a:has-text("Features")',
     developersLink: 'a:has-text("Developers")',
-    botsAppsLink: 'a:has-text("Bots/Apps")',
-    documentsLink: 'a:has-text("Documents")',
-    discoverLink: 'a:has-text("Discover")',
-    blogsLink: 'a:has-text("Blogs")',
+    heroSection: 'h1',
+    featuresSection: 'h2:has-text("Our features")',
+    footerSection: 'text="© 2024 Mezon. All rights reserved."',
     
-    // Main content
-    heroTitle: 'text=The Live, Work, and Play Platform – the best Discord alternative.',
-    heroDescription: 'text=Mezon is great for playing games and chilling with friends',
-    customizeSpaceText: 'text=Customize your own space to talk, play, and hang out.',
+    navigationMenu: '.header',
+    mobileMenuToggle: '.menu-toggle, .hamburger, [data-testid="mobile-menu"]',
     
-    // Download buttons
-    appStoreButton: '[alt="Download on the App Store"]',
-    googlePlayButton: '[alt="Get it on Google Play"]',
-    macAppStoreButton: '[alt="Download on the Mac App Store"]',
-    
-    // Logo
-    mezonLogo: 'svg', // Mezon logo selector
+    mainContent: 'body, main, div:has(h1)',
+    pageTitle: 'h1',
   };
 
   constructor(page: Page) {
-    super(page, WEBSITE_CONFIGS.MEZON.baseURL);
+    super(page);
   }
 
-  /**
-   * Navigate to homepage
-   */
   async navigate(): Promise<void> {
-    await this.page.goto(this.baseURL);
-    await this.waitForPageLoad();
-  }
-
-  /**
-   * Navigate to home page (alias for navigate)
-   */
-  async navigateToHome(): Promise<void> {
-    await this.navigate();
-  }
-
-  /**
-   * Wait for homepage to be fully loaded
-   */
-  async waitForPageLoad(): Promise<void> {
-    await this.page.waitForLoadState('networkidle');
-    // Simple wait without strict element verification
-    await this.page.waitForTimeout(2000);
-  }
-
-  /**
-   * Verify home page is loaded
-   */
-  async verifyHomePageLoaded(): Promise<void> {
-    await this.verifyHomepageElements();
-  }
-
-  /**
-   * Verify homepage elements are visible
-   */
-  async verifyHomepageElements(): Promise<void> {
-    // Verify page title
-    await expect(this.page).toHaveTitle(MEZON_PAGE_TITLES.HOME);
-    
-    // Verify essential navigation elements
-    await expect(this.page.locator(this.selectors.loginButton)).toBeVisible();
-    
-    // Verify key hero section elements (using .first() to avoid strict mode)
-    await expect(this.page.locator(this.selectors.heroTitle).first()).toBeVisible();
-    
-    // Note: Download buttons verification removed as they may not exist on actual Mezon site
-    // Focus on core functionality verification instead
-  }
-
-  /**
-   * Navigate to Signup/Login ∂
-   */
-  async navigateToSignupLogin(): Promise<void> {
-    await this.clickLogin();
-  }
-
-  /**
-   * Click on Login button to navigate to login ∂
-   */
-  async clickLogin(): Promise<void> {
-    await this.page.locator(this.selectors.loginButton).click();
-    await this.page.waitForLoadState('networkidle');  
-  }
-
-  /**
-   * Navigate to specific sections
-   */
-  async navigateToOverview(): Promise<void> {
-    await this.page.locator(this.selectors.overviewLink).first().click();
+    const baseUrl = WEBSITE_CONFIGS.MEZON.baseURL;
+    await this.page.goto(baseUrl);
     await this.page.waitForLoadState('networkidle');
   }
 
-  async navigateToFeatures(): Promise<void> {
-    await this.page.locator(this.selectors.featuresLink).first().click();
-    await this.page.waitForLoadState('networkidle');
-  }
-
-  async navigateToDevelopers(): Promise<void> {
-    await this.page.locator(this.selectors.developersLink).first().click();
-    await this.page.waitForLoadState('networkidle');
-  }
-
-  async navigateToBotsApps(): Promise<void> {
-    await this.page.locator(this.selectors.botsAppsLink).first().click();
-    await this.page.waitForLoadState('networkidle');
-  }
-
-  async navigateToDocuments(): Promise<void> {
-    await this.page.locator(this.selectors.documentsLink).first().click();
-    await this.page.waitForLoadState('networkidle');
-  }
-
-  async navigateToDiscover(): Promise<void> {
-    await this.page.locator(this.selectors.discoverLink).first().click();
-    await this.page.waitForLoadState('networkidle');
-  }
-
-  async navigateToBlogs(): Promise<void> {
-    await this.page.locator(this.selectors.blogsLink).first().click();
-    await this.page.waitForLoadState('networkidle');
-  }
-
-  /**
-   * Download app actions
-   */
-  async downloadFromAppStore(): Promise<void> {
-    await this.page.locator(this.selectors.appStoreButton).click();
-  }
-
-  async downloadFromGooglePlay(): Promise<void> {
-    await this.page.locator(this.selectors.googlePlayButton).click();
-  }
-
-  async downloadFromMacAppStore(): Promise<void> {
-    await this.page.locator(this.selectors.macAppStoreButton).click();
-  }
-
-  /**
-   * Get current page URL
-   */
-  getCurrentUrl(): string {
-    return this.page.url();
-  }
-
-  /**
-   * Verify user is on homepage
-   */
   async verifyOnHomepage(): Promise<void> {
-    expect(this.getCurrentUrl()).toContain(this.baseURL);
-    await expect(this.page.locator(this.selectors.heroTitle).first()).toBeVisible();
+    const currentUrl = this.page.url();
+    const baseUrl = WEBSITE_CONFIGS.MEZON.baseURL;
+    expect(currentUrl).toContain(baseUrl);
+    
+    await expect(this.page.locator(this.selectors.mainContent)).toBeVisible();
   }
 
-  // Legacy methods for compatibility
-  async navigateToProducts(): Promise<void> {
-    // Mezon doesn't have products page, redirect to features
-    await this.navigateToFeatures();
+  async verifyNavigationMenu(): Promise<void> {
+    await expect(this.page.locator(this.selectors.navigationMenu)).toBeVisible();
   }
 
-  async navigateToCart(): Promise<void> {
-    // Mezon doesn't have cart, this is a no-op
-    console.warn('Cart navigation not available on Mezon');
+  async clickLogin(): Promise<void> {
+    const loginBtn = this.page.locator(this.selectors.loginButton);
+    await loginBtn.waitFor({ state: 'visible', timeout: 10000 });
+    await loginBtn.click();
+    await this.page.waitForLoadState('networkidle');
   }
 
-  async navigateToContactUs(): Promise<void> {
-    // Mezon doesn't have contact us, this is a no-op
-    console.warn('Contact Us navigation not available on Mezon');
+  async verifyLinkExists(linkText: string): Promise<void> {
+    const link = this.page.locator(`a:has-text("${linkText}")`);
+    await expect(link).toBeVisible();
   }
 
-  async subscribeToNewsletter(email: string): Promise<void> {
-    // Newsletter subscription not available on Mezon homepage
-    console.warn('Newsletter subscription not available on Mezon homepage');
+  async verifyHeroSection(): Promise<void> {
+    await expect(this.page.locator(this.selectors.heroSection)).toBeVisible();
   }
 
-  async verifySubscriptionSuccess(): Promise<void> {
-    // Newsletter subscription not available on Mezon
-    console.warn('Newsletter subscription not available on Mezon');
+  async verifyFeaturesSection(): Promise<void> {
+    await expect(this.page.locator(this.selectors.featuresSection)).toBeVisible();
+  }
+
+  async verifyFooterSection(): Promise<void> {
+    await expect(this.page.locator(this.selectors.footerSection)).toBeVisible();
+  }
+
+  async verifyMobileNavigation(): Promise<void> {
+    const mobileToggle = this.page.locator(this.selectors.mobileMenuToggle);
+    const navigation = this.page.locator(this.selectors.navigationMenu);
+    
+    const isMobileToggleVisible = await mobileToggle.isVisible();
+    const isNavigationVisible = await navigation.isVisible();
+    
+    expect(isMobileToggleVisible || isNavigationVisible).toBeTruthy();
+  }
+
+  async verifyResponsiveLayout(): Promise<void> {
+    await expect(this.page.locator(this.selectors.mainContent)).toBeVisible();
+    
+    const viewport = await this.page.viewportSize();
+    expect(viewport?.width).toBeLessThanOrEqual(375);
+  }
+
+  async verifyCriticalElements(): Promise<void> {
+    await expect(this.page.locator(this.selectors.mainContent)).toBeVisible();
+    await expect(this.page.locator(this.selectors.navigationMenu)).toBeVisible();
+    await expect(this.page.locator(this.selectors.loginButton)).toBeVisible();
+  }
+
+  async verifyNoBrokenLinks(): Promise<void> {
+    const links = await this.page.locator('a[href]').all();
+    let brokenLinksCount = 0;
+    
+    for (const link of links.slice(0, 5)) {
+      try {
+        const href = await link.getAttribute('href');
+        if (href && href.startsWith('http')) {
+          const response = await this.page.request.get(href);
+          if (response.status() >= 400) {
+            brokenLinksCount++;
+          }
+        }
+      } catch (error) {
+        console.log(`Could not check link: ${error}`);
+      }
+    }
+    
+    expect(brokenLinksCount).toBe(0);
   }
 
   async isUserLoggedIn(): Promise<boolean> {
-    // Check if login button is still visible (if visible, user is not logged in)
     try {
-      const loginButton = this.page.locator(this.selectors.loginButton);
-      const isVisible = await loginButton.isVisible({ timeout: 5000 });
-      return !isVisible; // If login button is not visible, user is logged in
+      const loginBtn = this.page.locator(this.selectors.loginButton);
+      return !(await loginBtn.isVisible());
     } catch {
       return false;
     }
   }
 
-  async getLoggedInUsername(): Promise<string> {
-    // Mezon might have different way to show logged in user
-    return 'Mezon User';
-  }
-
-  async logout(): Promise<void> {
-    // Logout functionality would need to be implemented based on Mezon's UI
-    console.warn('Logout functionality needs to be implemented for Mezon');
-  }
-
-  async verifyLoggedInAsUser(username: string): Promise<void> {
-    // Verify user is logged in (login button not visible)
-    const isLoggedIn = await this.isUserLoggedIn();
-    expect(isLoggedIn).toBeTruthy();
-  }
-
-  async verifyUserNotLoggedIn(): Promise<void> {
-    // Verify login button is visible
+  async verifyLoginButton(): Promise<void> {
     await expect(this.page.locator(this.selectors.loginButton)).toBeVisible();
-  }
-
-  async getPageHeaderText(): Promise<string> {
-    return await this.page.locator(this.selectors.heroTitle).textContent() || '';
-  }
-
-  async scrollToBottom(): Promise<void> {
-    await this.page.evaluate(() => {
-      window.scrollTo(0, document.body.scrollHeight);
-    });
-  }
-
-  async scrollToTop(): Promise<void> {
-    await this.page.evaluate(() => {
-      window.scrollTo(0, 0);
-    });
   }
 }

@@ -1,6 +1,6 @@
-import { type FullConfig } from '@playwright/test';
+// Global teardown function
 
-async function globalTeardown(config: FullConfig) {
+async function globalTeardown() {
   try {
     const fs = await import('fs');
     const path = await import('path');
@@ -40,11 +40,12 @@ async function globalTeardown(config: FullConfig) {
       const endTime = Date.now();
       const startTime = parseInt(process.env.TEST_START_TIME || '0');
       if (startTime > 0) {
-        const duration = Math.round((endTime - startTime) / 1000);
+        Math.round((endTime - startTime) / 1000);
       }
     }
     
-  } catch (error) {
+  } catch {
+    // Ignore cleanup errors
   }
 }
 

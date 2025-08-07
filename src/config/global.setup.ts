@@ -1,8 +1,7 @@
-import { chromium, type FullConfig } from '@playwright/test';
+import { chromium } from '@playwright/test';
 import { ENV_CONFIG } from './environment';
 
-async function globalSetup(config: FullConfig) {
-  try {
+async function globalSetup() {
     const fs = await import('fs');
     const path = await import('path');
     
@@ -32,10 +31,6 @@ async function globalSetup(config: FullConfig) {
     
     await context.close();
     await browser.close();
-    
-  } catch (error) {
-    throw error;
-  }
 }
 
 export default globalSetup;

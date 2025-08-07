@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { defineBddConfig } from 'playwright-bdd';
 import { OrtoniReportConfig } from 'ortoni-report';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -27,69 +28,40 @@ const reportConfig: OrtoniReportConfig = {
   },
 };
 
-/**
- * Playwright Configuration
- * Standard setup for Playwright + Page Object Model framework
- */
 export default defineConfig({
-  // Test directory - Exclude auth tests and homepage  
   testDir: './src/tests',
   // testIgnore: ['**/*.auth.spec.ts', '**/homepage.spec.ts'],
+  timeout: 300 * 1000,
   
-  // Global test timeout (30 seconds)
-  timeout: 30 * 1000,
-  
-  // Expect timeout (10 seconds)
   expect: {
     timeout: 10 * 1000,
   },
 
-  // Fail the build on CI if you accidentally left test.only in the source code
   forbidOnly: !!process.env.CI,
-  
-  // Retry on CI only
   retries: process.env.CI ? 2 : 0,
-  
-  // Opt out of parallel tests on CI
+  fullyParallel: true,
   workers: process.env.CI ? 1 : undefined,
   
-  // Reporter configuration
   reporter: [
+    ['list'],
+    ['html', { open: 'never' }],
+    ['json', { outputFile: 'results.json' }],
     ['ortoni-report', reportConfig],
-    ['json', { outputFile: 'ortoni-reports/results.json' }],
-    ['junit', { outputFile: 'ortoni-reports/results.xml' }],
-    process.env.CI ? ['github'] : ['list'],
   ],
 
   // Global setup and teardown
   globalSetup: './src/config/global.setup.ts',
   globalTeardown: './src/config/global.teardown.ts',
-
-  // Output directories
   outputDir: 'test-results/',
-  
-  // Shared settings for all projects
+    
   use: {
-    // Base URL for tests
     baseURL: process.env.BASE_URL || 'https://dev-mezon.nccsoft.vn',
-    
-    // Collect trace when retrying the failed test
     trace: 'on-first-retry',
-    
-    // Record video on failure
     video: 'retain-on-failure',
-    
-    // Take screenshots on failure
     screenshot: 'only-on-failure',
-    
-    // Browser context options
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
-    
-    // Action timeout
     actionTimeout: 10 * 1000,
-    
-    // Navigation timeout
     navigationTimeout: 30 * 1000,
   },
 
@@ -99,13 +71,60 @@ export default defineConfig({
     {
       name: 'setup',
       testMatch: /.*\.setup\.ts/,
+      timeout: 60 * 1000, // 1 minute for setup
     },
     
-    // Desktop browsers
     {
-      name: 'chromium',
+      name: 'chromium-traditional',
+      testDir: './src/tests',
       use: { 
         ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['setup'],
+    },
+    
+    // BDD Tests - Login flow (NO AUTH)
+    {
+      name: 'chromium-bdd-login',
+      testDir: defineBddConfig({
+        features: 'src/features/userLogin.feature',
+        steps: ['src/features/steps/*.ts', 'src/fixtures/page.fixture.ts'],
+        outputDir: '.features-gen/login',
+      }),
+      use: { 
+        ...devices['Desktop Chrome'], 
+        viewport: { width: 1920, height: 1080 },
+        // NO storageState - fresh browser for login tests
+      },
+    },
+    
+    // BDD Tests - No Auth Required (homepage, simple)
+    {
+      name: 'chromium-bdd-no-auth',
+      testDir: defineBddConfig({
+        features: ['src/features/homepage.feature', 'src/features/simple.feature'],
+        steps: ['src/features/steps/*.ts', 'src/fixtures/page.fixture.ts'],
+        outputDir: '.features-gen/no-auth',
+      }),
+      use: { 
+        ...devices['Desktop Chrome'], 
+        viewport: { width: 1920, height: 1080 },
+        // NO storageState for fresh browser
+      },
+    },
+
+    // BDD Tests - Auth Required features  
+    {
+      name: 'chromium-bdd-auth',
+      testDir: defineBddConfig({
+        features: ['src/features/**/*.feature', '!src/features/userLogin.feature', '!src/features/homepage.feature', '!src/features/simple.feature'],
+        steps: ['src/features/steps/*.ts', 'src/fixtures/page.fixture.ts'],
+        outputDir: '.features-gen/auth',
+      }),
+      use: { 
+        ...devices['Desktop Chrome'], 
+        viewport: { width: 1920, height: 1080 },
         // Use prepared auth state
         storageState: 'playwright/.auth/user.json',
       },

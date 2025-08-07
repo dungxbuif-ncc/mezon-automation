@@ -1,39 +1,52 @@
-import { test as setup, expect } from '@playwright/test';
-import { HomePage } from '../pages/HomePage';
+import { test as setup } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { MEZON_TEST_USERS } from '../data/static/TestUsers';
 
 const authFile = 'playwright/.auth/user.json';
 
-setup('prepare auth states', async ({ page }) => {
-  const homePage = new HomePage(page);
+setup('prepare mezon auth state', async ({ page }) => {
+  const fs = await import('fs');
+  if (fs.existsSync(authFile)) {
+    const stats = fs.statSync(authFile);
+    const ageInMinutes = (Date.now() - stats.mtime.getTime()) / (1000 * 60);
+    
+    if (ageInMinutes < 60) {
+      console.log('✅ Setup: Auth state already exists and is recent, skipping login');
+      return;
+    }
+  }
+  
   const loginPage = new LoginPage(page);
   const testUser = MEZON_TEST_USERS.MAIN_USER;
   
-  // Navigate to login
-  await homePage.navigateToHome();
-  await homePage.clickLogin();
-  
-  // Perform login
-  await loginPage.verifyOnLoginPage();
-  await loginPage.enterEmail(testUser.email);
-  await loginPage.clickSendOtp();
-  
-  // Wait for potential auto-redirect or success
-  await page.waitForTimeout(5000);
-  
-  // Check if we're successfully authenticated
-  const currentUrl = page.url();
-  if (currentUrl.includes('sendotp') || currentUrl.includes('callback') || currentUrl.includes('dev-mezon')) {
-    console.log('✅ Setup: Authentication successful, saving state...');
+  try {
+    await loginPage.navigate();
     
-    // Save authentication state
+    await loginPage.enterEmail(testUser.email);
+    await loginPage.clickSendOtp();
+    await loginPage.enterOtp(testUser.otp);
+    
+    await page.waitForTimeout(3000);
+    const currentUrl = page.url();
+    
+    if (currentUrl.includes('/login/callback') || currentUrl.includes('/chat')) {
+      console.log('✅ Setup: Auto-redirected after OTP, authentication successful!');
+    } else {
+      try {
+        await loginPage.clickVerifyOtp();
+        console.log('✅ Setup: Clicked verify OTP button');
+      } catch {
+        console.log('⚠️ Setup: Verify button not found, checking if already authenticated');
+      }
+    }
+    
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(3000);
+    
     await page.context().storageState({ path: authFile });
-    
-    console.log('✅ Setup: Auth state saved to', authFile);
-  } else {
-    console.warn('⚠️ Setup: Authentication may not be complete');
-    // Save whatever state we have
+  } catch (error) {
+    console.error('❌ Setup failed:', error);
+    await page.screenshot({ path: 'debug-auth-setup.png', fullPage: true });
     await page.context().storageState({ path: authFile });
   }
 });

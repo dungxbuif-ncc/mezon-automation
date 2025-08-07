@@ -3,6 +3,12 @@
  * Contains predefined test users for consistent testing
  */
 
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 export interface TestUser {
   name: string;
   email: string;
@@ -202,6 +208,8 @@ export const URL_PATHS = {
   API_LIST: '/api_list',
 };
 
+
+
 /**
  * Mezon Test User Interface
  */
@@ -209,18 +217,51 @@ export interface MezonTestUser {
   email: string;
   otp: string;
   name?: string;
+  role?: string;
+  authFile?: string;
 }
 
+// Auth file paths
+export const authUserFile = path.join(__dirname, "../.auth/user.json");
+export const authAdminFile = path.join(__dirname, "../.auth/admin.json");
+export const authModeratorFile = path.join(__dirname, "../.auth/moderator.json");
+
 /**
- * Mezon test users with hardcoded credentials
+ * Mezon test users with multi-role support
  */
 export const MEZON_TEST_USERS = {
   MAIN_USER: {
     email: 'mezontest@gmail.com',
     otp: '578098',
     name: 'Mezon Test User',
+    role: 'user',
+    authFile: authUserFile,
+  },
+  user: {
+    email: 'mezontest@gmail.com',
+    otp: '578098',
+    name: 'Mezon Test User',
+    role: 'user',
+    authFile: authUserFile,
+  },
+  admin: {
+    email: 'mezonadmin@gmail.com',
+    otp: '578098',
+    name: 'Mezon Admin User',
+    role: 'admin',
+    authFile: authAdminFile,
+  },
+  moderator: {
+    email: 'mezonmod@gmail.com',
+    otp: '578098',
+    name: 'Mezon Moderator User',
+    role: 'moderator',
+    authFile: authModeratorFile,
   },
 } as const;
+
+// Export for compatibility with ncc-erp pattern
+export const users = MEZON_TEST_USERS;
 
 /**
  * Mezon page titles and messages
