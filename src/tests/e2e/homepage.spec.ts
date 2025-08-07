@@ -12,7 +12,6 @@ test.describe('Homepage Tests - Element Verification', () => {
   test.beforeEach(async ({ page }) => {
     homePage = new HomePage(page);
     
-    // Navigate to homepage before each test
     await homePage.navigateToHome();
   });
 
@@ -29,7 +28,10 @@ test.describe('Homepage Tests - Element Verification', () => {
   });
 
   test('should verify Login button exists @smoke', async () => {
-    // Verify Login button exists
     await expect(homePage.page.locator('a[href="/mezon"]:has-text("Login")')).toBeVisible();
+  });
+
+  test('should fail - verify non-existent element @smoke', async () => {
+    await expect(homePage.page.locator('a:has-text("NonExistentButton")')).toBeVisible();
   });
 });

@@ -8,6 +8,7 @@ yarn-error.log*
 test-results/
 test-archive/
 playwright-report/
+ortoni-reports/
 allure-results/
 reports/
 .features-gen/

@@ -16,7 +16,8 @@
     "test:auth:headed": "npx playwright test --config=playwright.auth.config.ts --headed",
     "test:main": "npx playwright test --config=playwright.config.ts",
     "test:main:headed": "npx playwright test --config=playwright.config.ts --headed",
-    "report": "npx playwright show-report",
+    "report": "npx ortoni-report show-report --dir ortoni-reports --file index.html",
+    "report:playwright": "npx playwright show-report",
     "install:browsers": "npx playwright install",
     "lint": "eslint src/ --ext .ts,.tsx",
     "lint:fix": "eslint src/ --ext .ts,.tsx --fix",
@@ -24,7 +25,12 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,json}\"",
     "clean": "rm -rf test-results/ playwright-report/ coverage/"
   },
-  "keywords": ["playwright", "automation", "testing", "page-object-model"],
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "page-object-model"
+  ],
   "author": "Mezon Team",
   "license": "MIT",
   "devDependencies": {
@@ -33,6 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^9.0.0",
+    "ortoni-report": "^3.0.5",
     "prettier": "^3.3.0",
     "typescript": "^5.5.0"
   },

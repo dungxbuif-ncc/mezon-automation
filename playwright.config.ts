@@ -1,8 +1,31 @@
 import { defineConfig, devices } from '@playwright/test';
+import { OrtoniReportConfig } from 'ortoni-report';
 import dotenv from 'dotenv';
-
-// Load environment variables
 dotenv.config();
+
+const reportConfig: OrtoniReportConfig = {
+  logo: "",
+  open: process.env.CI ? "never" : "always",
+  folderPath: "ortoni-reports",
+  filename: "index.html",
+  title: "Mezon Automation Test Report",
+  showProject: true,
+  projectName: "Mezon-Automation",
+  testType: "e2e",
+  authorName: "mezoner",
+  base64Image: false,
+  stdIO: false,
+  preferredTheme: "light",
+  chartType: "doughnut",
+  meta: {
+    project: "Mezon Automation",
+    version: "1.0.0",
+    description: "Playwright E2E test report for Mezon platform",
+    testCycle: "Main",
+    release: "1.0.0",
+    environment: process.env.BASE_URL || 'https://dev-mezon.nccsoft.vn',
+  },
+};
 
 /**
  * Playwright Configuration
@@ -11,7 +34,7 @@ dotenv.config();
 export default defineConfig({
   // Test directory - Exclude auth tests and homepage  
   testDir: './src/tests',
-  testIgnore: ['**/*.auth.spec.ts', '**/homepage.spec.ts'],
+  // testIgnore: ['**/*.auth.spec.ts', '**/homepage.spec.ts'],
   
   // Global test timeout (30 seconds)
   timeout: 30 * 1000,
@@ -32,9 +55,9 @@ export default defineConfig({
   
   // Reporter configuration
   reporter: [
-    ['html', { open: 'never' }],
-    ['json', { outputFile: 'playwright-report/results.json' }],
-    ['junit', { outputFile: 'playwright-report/results.xml' }],
+    ['ortoni-report', reportConfig],
+    ['json', { outputFile: 'ortoni-reports/results.json' }],
+    ['junit', { outputFile: 'ortoni-reports/results.xml' }],
     process.env.CI ? ['github'] : ['list'],
   ],
 
