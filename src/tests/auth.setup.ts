@@ -1,6 +1,7 @@
 import { test as setup } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { MEZON_TEST_USERS } from '../data/static/TestUsers';
+import { SESSION_CONFIGS } from '../config/environment';
 
 const authFile = 'playwright/.auth/user.json';
 
@@ -11,7 +12,6 @@ setup('prepare mezon auth state', async ({ page }) => {
     const ageInMinutes = (Date.now() - stats.mtime.getTime()) / (1000 * 60);
     
     if (ageInMinutes < 60) {
-      console.log('✅ Setup: Auth state already exists and is recent, skipping login');
       return;
     }
   }
@@ -27,25 +27,31 @@ setup('prepare mezon auth state', async ({ page }) => {
     await loginPage.enterOtp(testUser.otp);
     
     await page.waitForTimeout(3000);
-    const currentUrl = page.url();
     
-    if (currentUrl.includes('/login/callback') || currentUrl.includes('/chat')) {
-      console.log('✅ Setup: Auto-redirected after OTP, authentication successful!');
-    } else {
+    if (!page.url().includes('/login/callback') && !page.url().includes('/chat')) {
       try {
         await loginPage.clickVerifyOtp();
-        console.log('✅ Setup: Clicked verify OTP button');
       } catch {
-        console.log('⚠️ Setup: Verify button not found, checking if already authenticated');
       }
     }
     
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(5000);
+    
+    try {
+      const mezonSession = {
+        "host": "dev-mezon.nccsoft.vn",
+        "port": "7305",
+        "ssl": true
+      };
+      await page.evaluate((sessionConfig) => {
+        localStorage.setItem('mezon_session', JSON.stringify(sessionConfig));
+      }, mezonSession);
+    } catch {
+    }
     
     await page.context().storageState({ path: authFile });
-  } catch (error) {
-    console.error('❌ Setup failed:', error);
+  } catch (error: unknown) {
     await page.screenshot({ path: 'debug-auth-setup.png', fullPage: true });
     await page.context().storageState({ path: authFile });
   }

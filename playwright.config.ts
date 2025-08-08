@@ -49,9 +49,9 @@ export default defineConfig({
     ['ortoni-report', reportConfig],
   ],
 
-  // Global setup and teardown
-  globalSetup: './src/config/global.setup.ts',
-  globalTeardown: './src/config/global.teardown.ts',
+  // Global setup and teardown - disabled to let auth.setup.ts handle auth
+  // globalSetup: './src/config/global.setup.ts',
+  // globalTeardown: './src/config/global.teardown.ts',
   outputDir: 'test-results/',
     
   use: {

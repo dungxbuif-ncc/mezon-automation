@@ -45,6 +45,17 @@ export const WEBSITE_CONFIGS = {
 } as const;
 
 /**
+ * Session configurations for localStorage
+ */
+export const SESSION_CONFIGS = {
+  MEZON_SESSION: {
+    host: process.env.MEZON_SESSION_HOST || 'api.mezon.ai',
+    port: process.env.MEZON_SESSION_PORT || '',
+    ssl: process.env.MEZON_SESSION_SSL !== 'false',
+  },
+} as const;
+
+/**
  * Get environment configuration based on NODE_ENV
  */
 function getEnvironmentConfig(): EnvironmentConfig {
