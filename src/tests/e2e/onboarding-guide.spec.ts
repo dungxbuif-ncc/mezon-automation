@@ -1,151 +1,45 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../../pages/HomePage';
-import { ClanPage } from '../../pages/ClanPage';
-import { OnboardingPage } from '../../pages/OnboardingPage';
+import { OnboardingHelpers } from '../../utils/onboardingHelpers';
 
 test.describe('Onboarding Guide Task Completion', () => {
   test.beforeEach(async ({ page }) => {
     const homePage = new HomePage(page);
     await homePage.navigate();
     
-    const currentUrl = page.url();
-    if (currentUrl.includes('dev-mezon.nccsoft.vn') && !currentUrl.includes('/chat')) {
-
-      
-      const openMezonSelectors = [
-        'button:has-text("Open Mezon")',
-        'a:has-text("Open Mezon")',
-        '[data-testid="open-mezon"]',
-        '.open-mezon-btn',
-        'button[class*="open"]',
-        'a[href*="/chat"]'
-      ];
-      
-      let buttonFound = false;
-      for (const selector of openMezonSelectors) {
-        try {
-          const button = page.locator(selector).first();
-          if (await button.isVisible({ timeout: 3000 })) {
-
-            await button.click();
-            buttonFound = true;
-            break;
-          }
-        } catch (e) {
-          continue;
-        }
-      }
-      
-      if (!buttonFound) {
-
-        await page.goto('/chat');
-      }
-      
-      await page.waitForLoadState('networkidle');
-      await page.waitForTimeout(3000);
-      
-
-    }
+    const helpers = new OnboardingHelpers(page);
+    await helpers.navigateToApp();
     
     const finalUrl = page.url();
     expect(finalUrl).not.toMatch(/login|signin|authentication/);
   });
 
   test('should mark "Send first message" task as done after user sends first message', async ({ page }) => {
-    const clanPage = new ClanPage(page);
-    const onboardingPage = new OnboardingPage(page);
+    const helpers = new OnboardingHelpers(page);
     
     await test.step('Create new clan by double clicking + button', async () => {
-
-      
-      await page.screenshot({ path: 'debug-before-clan-creation.png', fullPage: true });
-      
-      const createClanClicked = await clanPage.clickCreateClanButton();
-      if (createClanClicked) {
-
-        
-        const clanName = `Test Clan ${Date.now()}`;
-        const clanCreated = await clanPage.createNewClan(clanName);
-        
-        if (clanCreated) {
-
-        } else {
-
-        }
-        
-        await page.screenshot({ path: 'debug-after-clan-creation.png', fullPage: true });
-      } else {
-
-        await page.screenshot({ path: 'debug-create-clan-failed.png', fullPage: true });
-      }
+      const clanName = `Test Clan ${Date.now()}`;
+      const { clicked, created } = await helpers.createTestClan(clanName);
+      expect(clicked).toBeTruthy();
+      expect(created).toBeTruthy();
     });
 
-    await test.step('Check onboarding guide and initial tasks state', async () => {
-
-      
-      await page.waitForTimeout(3000);
-      
-      const onboardingVisible = await onboardingPage.isOnboardingGuideVisible();
-      if (!onboardingVisible) {
-
-        await onboardingPage.openOnboardingGuide();
-      }
-
-      await onboardingPage.debugOnboardingTasks();
-      
-      const initialTasksStatus = await onboardingPage.getAllTasksStatus();
-
-      
-      await page.screenshot({ path: 'debug-onboarding-initial-state.png', fullPage: true });
+    await test.step('Ensure onboarding guide visible', async () => {
+      await helpers.ensureOnboardingGuideVisible();
     });
 
     await test.step('Send first message', async () => {
-
-      
-      const testMessage = `Hello! This is my first message - ${Date.now()}`;
-      const messageSent = await clanPage.sendFirstMessage(testMessage);
-      
-      if (messageSent) {
-
-        
-        const messageVerified = await clanPage.verifyMessageSent(testMessage);
-
-        
-        await page.screenshot({ path: 'debug-after-first-message.png', fullPage: true });
-      } else {
-
-        await page.screenshot({ path: 'debug-message-send-failed.png', fullPage: true });
-      }
+      const { sent, verified } = await helpers.sendTestMessage();
+      expect(sent).toBeTruthy();
+      expect(verified).toBeTruthy();
     });
 
     await test.step('Verify "Send first message" task is marked as done', async () => {
-
-      
-      await page.waitForTimeout(2000);
-      
-      const beforeTaskStatus = await onboardingPage.getTaskStatus('sendFirstMessage');
-
-      
-      const isTaskMarkedDone = await onboardingPage.waitForTaskToBeMarkedDone('sendFirstMessage', 10000);
-      
-      const afterTaskStatus = await onboardingPage.getTaskStatus('sendFirstMessage');
-
-      
-      await page.screenshot({ path: 'debug-task-completion-check.png', fullPage: true });
-      
-      if (isTaskMarkedDone) {
-
-      } else {
-
-        
-        await onboardingPage.debugOnboardingTasks();
-        await page.screenshot({ path: 'debug-task-not-marked-done.png', fullPage: true });
-      }
-
-      const finalTasksStatus = await onboardingPage.getAllTasksStatus();
-
-
-      expect(isTaskMarkedDone, 'The "Send first message" task should be marked as done (green tick) after user sends first message').toBeTruthy();
+      const isTaskMarkedDone = await helpers.waitForTaskCompletion('sendFirstMessage');
+      expect(
+        isTaskMarkedDone,
+        'The "Send first message" task should be marked as done (green tick) after user sends first message'
+      ).toBeTruthy();
     });
   });
 

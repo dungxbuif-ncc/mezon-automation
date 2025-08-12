@@ -1,4 +1,4 @@
-import { type Page, type Locator, expect } from '@playwright/test';
+import { type Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class OnboardingPage extends BasePage {
@@ -57,7 +57,7 @@ export class OnboardingPage extends BasePage {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 3000 })) {
           await element.click();
-          await this.page.waitForTimeout(1000);
+          await this.page.waitForTimeout(500);
           return true;
         }
       } catch (e) {
@@ -89,7 +89,6 @@ export class OnboardingPage extends BasePage {
     isDone: boolean;
     selector?: string;
   }> {
-
     const onboardingArea = this.page.locator('div:has-text("Invite your friends")').first();
     const allTaskRows = onboardingArea.locator('div.w-\\[400px\\].gap-4');
     const rowCount = await allTaskRows.count();
@@ -150,8 +149,10 @@ export class OnboardingPage extends BasePage {
     };
   }
 
-  async waitForTaskToBeMarkedDone(taskType: 'sendFirstMessage' | 'invitePeople' | 'createChannel', timeoutMs: number = 5000): Promise<boolean> {
-
+  async waitForTaskToBeMarkedDone(
+    taskType: 'sendFirstMessage' | 'invitePeople' | 'createChannel',
+    timeoutMs: number = 5000
+  ): Promise<boolean> {
     const startTime = Date.now();
     
     while (Date.now() - startTime < timeoutMs) {
@@ -169,34 +170,4 @@ export class OnboardingPage extends BasePage {
     return false;
   }
 
-  async debugOnboardingTasks(): Promise<void> {
-
-    await this.takeScreenshot('debug-onboarding-tasks');
-    
-    // Debug specific onboarding guide area
-    const onboardingArea = this.page.locator('div:has-text("Invite your friends")').first();
-    
-    // Look for all task rows in onboarding area
-    const taskRows = onboardingArea.locator('div.w-\\[400px\\].gap-4');
-    const rowCount = await taskRows.count();
-
-    for (let i = 0; i < rowCount; i++) {
-      try {
-        const row = taskRows.nth(i);
-        const text = await row.textContent();
-        const hasGreenTick = await row.locator(this.taskDoneIndicators.join(', ')).first().isVisible().catch(() => false);
-        
-
-
-        
-        if (hasGreenTick) {
-          const greenTickElement = await row.locator(this.taskDoneIndicators.join(', ')).first();
-          const tickClass = await greenTickElement.getAttribute('class');
-
-        }
-      } catch (e) {
-
-      }
-    }
-  }
 }
