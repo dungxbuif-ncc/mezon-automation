@@ -53,7 +53,11 @@ export class ClanPage extends BasePage {
   ];
 
   private readonly messageInputSelectors = [
+    'textarea#editorReactMentionChannel',
+    'textarea[placeholder="Write your thoughts here..."]',
+    'textarea.mentions__input',
     '[data-testid="message-input"]',
+    'textarea[placeholder*="thoughts" i]',
     'textarea[placeholder*="message" i]',
     'input[placeholder*="message" i]',
     '.message-input',
@@ -66,15 +70,14 @@ export class ClanPage extends BasePage {
   }
 
   async clickCreateClanButton(): Promise<boolean> {
-    console.log('🔍 Looking for create clan button (+)...');
-    
+
     for (const selector of this.createClanButtonSelectors) {
       try {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 3000 })) {
-          console.log(`✅ Found create clan button using: ${selector}`);
+
           await element.dblclick();
-          console.log('🖱️ Double clicked on create clan button');
+
           await this.page.waitForTimeout(2000);
           return true;
         }
@@ -83,12 +86,12 @@ export class ClanPage extends BasePage {
       }
     }
 
-    console.log('❌ Could not find create clan button');
+
     return false;
   }
 
   async createNewClan(clanName: string): Promise<boolean> {
-    console.log(`🏰 Creating new clan: ${clanName}`);
+
 
     const clanNameInputSelectors = [
       '[data-testid="clan-name-input"]',
@@ -104,7 +107,7 @@ export class ClanPage extends BasePage {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 3000 })) {
           nameInput = element;
-          console.log(`✅ Found clan name input using: ${selector}`);
+
           break;
         }
       } catch (e) {
@@ -113,7 +116,7 @@ export class ClanPage extends BasePage {
     }
 
     if (!nameInput) {
-      console.log('❌ Could not find clan name input');
+
       return false;
     }
 
@@ -133,7 +136,7 @@ export class ClanPage extends BasePage {
         const button = this.page.locator(selector).first();
         if (await button.isVisible({ timeout: 2000 })) {
           await button.click();
-          console.log(`✅ Created clan "${clanName}" using: ${selector}`);
+
           await this.page.waitForTimeout(3000);
           return true;
         }
@@ -142,7 +145,7 @@ export class ClanPage extends BasePage {
       }
     }
 
-    console.log(`❌ Could not find create clan button`);
+
     return false;
   }
 
@@ -152,7 +155,7 @@ export class ClanPage extends BasePage {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 3000 })) {
           await element.click();
-          console.log(`✅ Clicked clan name using: ${selector}`);
+
           await this.page.waitForTimeout(1000);
           return true;
         }
@@ -161,7 +164,7 @@ export class ClanPage extends BasePage {
       }
     }
 
-    console.log('❌ Could not find clan name to click');
+
     return false;
   }
 
@@ -171,7 +174,7 @@ export class ClanPage extends BasePage {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 3000 })) {
           await element.click();
-          console.log(`✅ Opened invite people modal using: ${selector}`);
+
           await this.page.waitForTimeout(1000);
           return true;
         }
@@ -180,7 +183,7 @@ export class ClanPage extends BasePage {
       }
     }
 
-    console.log('❌ Could not find invite people button');
+
     return false;
   }
 
@@ -199,7 +202,7 @@ export class ClanPage extends BasePage {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 2000 })) {
           searchInput = element;
-          console.log(`✅ Found search input using: ${selector}`);
+
           break;
         }
       } catch (e) {
@@ -208,7 +211,7 @@ export class ClanPage extends BasePage {
     }
 
     if (!searchInput) {
-      console.log('❌ Could not find user search input');
+
       return false;
     }
 
@@ -227,7 +230,7 @@ export class ClanPage extends BasePage {
         const button = this.page.locator(selector).first();
         if (await button.isVisible({ timeout: 2000 })) {
           await button.click();
-          console.log(`✅ Invited user "${username}" using: ${selector}`);
+
           await this.page.waitForTimeout(1000);
           return true;
         }
@@ -236,14 +239,14 @@ export class ClanPage extends BasePage {
       }
     }
 
-    console.log(`❌ Could not find invite button for user "${username}"`);
+
     return false;
   }
 
   async openCreateChannelModal(): Promise<boolean> {
     const channelListFound = await this.findChannelList();
     if (!channelListFound) {
-      console.log('❌ Channel list not found');
+
       return false;
     }
 
@@ -252,7 +255,7 @@ export class ClanPage extends BasePage {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 3000 })) {
           await element.click();
-          console.log(`✅ Opened create channel modal using: ${selector}`);
+
           await this.page.waitForTimeout(1000);
           return true;
         }
@@ -261,7 +264,7 @@ export class ClanPage extends BasePage {
       }
     }
 
-    console.log('❌ Could not find create channel button');
+
     return false;
   }
 
@@ -270,7 +273,7 @@ export class ClanPage extends BasePage {
       try {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 2000 })) {
-          console.log(`✅ Found channel list using: ${selector}`);
+
           return true;
         }
       } catch (e) {
@@ -278,7 +281,7 @@ export class ClanPage extends BasePage {
       }
     }
 
-    console.log('❌ Channel list not found');
+
     return false;
   }
 
@@ -293,7 +296,7 @@ export class ClanPage extends BasePage {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 2000 })) {
           await element.click();
-          console.log(`✅ Selected channel type "${channelType}" using: ${selector}`);
+
           break;
         }
       } catch (e) {
@@ -314,7 +317,7 @@ export class ClanPage extends BasePage {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 2000 })) {
           nameInput = element;
-          console.log(`✅ Found channel name input using: ${selector}`);
+
           break;
         }
       } catch (e) {
@@ -323,7 +326,7 @@ export class ClanPage extends BasePage {
     }
 
     if (!nameInput) {
-      console.log('❌ Could not find channel name input');
+
       return false;
     }
 
@@ -343,7 +346,7 @@ export class ClanPage extends BasePage {
         const button = this.page.locator(selector).first();
         if (await button.isVisible({ timeout: 2000 })) {
           await button.click();
-          console.log(`✅ Created channel "${channelName}" using: ${selector}`);
+
           await this.page.waitForTimeout(2000);
           return true;
         }
@@ -352,7 +355,7 @@ export class ClanPage extends BasePage {
       }
     }
 
-    console.log(`❌ Could not find create channel button`);
+
     return false;
   }
 
@@ -364,7 +367,7 @@ export class ClanPage extends BasePage {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 3000 })) {
           messageInput = element;
-          console.log(`✅ Found message input using: ${selector}`);
+
           break;
         }
       } catch (e) {
@@ -373,7 +376,7 @@ export class ClanPage extends BasePage {
     }
 
     if (!messageInput) {
-      console.log('❌ Could not find message input');
+
       return false;
     }
 
@@ -381,7 +384,7 @@ export class ClanPage extends BasePage {
     await this.page.waitForTimeout(500);
 
     await messageInput.press('Enter');
-    console.log(`✅ Sent first message: "${message}"`);
+
     await this.page.waitForTimeout(2000);
     
     return true;
@@ -399,7 +402,7 @@ export class ClanPage extends BasePage {
       try {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 3000 })) {
-          console.log(`✅ Message verified using: ${selector}`);
+
           return true;
         }
       } catch (e) {
@@ -407,7 +410,7 @@ export class ClanPage extends BasePage {
       }
     }
 
-    console.log(`❌ Could not verify message "${message}" was sent`);
+
     return false;
   }
 }
