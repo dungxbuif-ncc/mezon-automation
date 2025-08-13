@@ -1,6 +1,11 @@
 import { type Page, type Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 
+interface SelectorResult {
+  found: boolean;
+  element?: Locator;
+}
+
 export class ClanPage extends BasePage {
   private readonly createClanButtonSelectors = [
     'div[onclick*="openCreateClanModal"]',
@@ -69,30 +74,41 @@ export class ClanPage extends BasePage {
     super(page, baseURL);
   }
 
-  async clickCreateClanButton(): Promise<boolean> {
-
-    for (const selector of this.createClanButtonSelectors) {
+  private async findElementBySelectors(
+    selectors: string[], 
+    timeout: number = 3000
+  ): Promise<SelectorResult> {
+    for (const selector of selectors) {
       try {
         const element = this.page.locator(selector).first();
-        if (await element.isVisible({ timeout: 3000 })) {
-
-          await element.dblclick();
-
-          await this.page.waitForTimeout(2000);
-          return true;
+        if (await element.isVisible({ timeout })) {
+          return { found: true, element };
         }
-      } catch (e) {
+      } catch (error) {
         continue;
       }
     }
+    return { found: false };
+  }
 
 
+  private async wait(ms: number): Promise<void> {
+    await this.page.waitForTimeout(ms);
+  }
+
+  async clickCreateClanButton(): Promise<boolean> {
+    const result = await this.findElementBySelectors(this.createClanButtonSelectors, 10000);
+    
+    if (result.found && result.element) {
+      await result.element.click();
+      await this.wait(2000);
+      return true;
+    }
+    
     return false;
   }
 
   async createNewClan(clanName: string): Promise<boolean> {
-
-
     const clanNameInputSelectors = [
       '[data-testid="clan-name-input"]',
       'input[placeholder*="clan name" i]',
@@ -101,27 +117,13 @@ export class ClanPage extends BasePage {
       'input[type="text"]'
     ];
 
-    let nameInput = null;
-    for (const selector of clanNameInputSelectors) {
-      try {
-        const element = this.page.locator(selector).first();
-        if (await element.isVisible({ timeout: 3000 })) {
-          nameInput = element;
-
-          break;
-        }
-      } catch (e) {
-        continue;
-      }
-    }
-
-    if (!nameInput) {
-
+    const nameInputResult = await this.findElementBySelectors(clanNameInputSelectors);
+    if (!nameInputResult.found || !nameInputResult.element) {
       return false;
     }
 
-    await nameInput.fill(clanName);
-    await this.page.waitForTimeout(500);
+    await nameInputResult.element.fill(clanName);
+    await this.wait(500);
 
     const createButtonSelectors = [
       '[data-testid="create-clan-btn"]',
@@ -131,59 +133,37 @@ export class ClanPage extends BasePage {
       '.create-clan-btn'
     ];
 
-    for (const selector of createButtonSelectors) {
-      try {
-        const button = this.page.locator(selector).first();
-        if (await button.isVisible({ timeout: 2000 })) {
-          await button.click();
-
-          await this.page.waitForTimeout(3000);
-          return true;
-        }
-      } catch (e) {
-        continue;
-      }
+    const createButtonResult = await this.findElementBySelectors(createButtonSelectors, 2000);
+    if (createButtonResult.found && createButtonResult.element) {
+      await createButtonResult.element.click();
+      await this.wait(3000);
+      return true;
     }
-
 
     return false;
   }
 
   async clickOnClanName(): Promise<boolean> {
-    for (const selector of this.clanNameSelectors) {
-      try {
-        const element = this.page.locator(selector).first();
-        if (await element.isVisible({ timeout: 3000 })) {
-          await element.click();
-
-          await this.page.waitForTimeout(1000);
-          return true;
-        }
-      } catch (e) {
-        continue;
-      }
+    const result = await this.findElementBySelectors(this.clanNameSelectors);
+    
+    if (result.found && result.element) {
+      await result.element.click();
+      await this.wait(1000);
+      return true;
     }
-
-
+    
     return false;
   }
 
   async openInvitePeopleModal(): Promise<boolean> {
-    for (const selector of this.invitePeopleSelectors) {
-      try {
-        const element = this.page.locator(selector).first();
-        if (await element.isVisible({ timeout: 3000 })) {
-          await element.click();
-
-          await this.page.waitForTimeout(1000);
-          return true;
-        }
-      } catch (e) {
-        continue;
-      }
+    const result = await this.findElementBySelectors(this.invitePeopleSelectors);
+    
+    if (result.found && result.element) {
+      await result.element.click();
+      await this.wait(1000);
+      return true;
     }
-
-
+    
     return false;
   }
 
@@ -196,27 +176,13 @@ export class ClanPage extends BasePage {
       '.search-input'
     ];
 
-    let searchInput = null;
-    for (const selector of searchSelectors) {
-      try {
-        const element = this.page.locator(selector).first();
-        if (await element.isVisible({ timeout: 2000 })) {
-          searchInput = element;
-
-          break;
-        }
-      } catch (e) {
-        continue;
-      }
-    }
-
-    if (!searchInput) {
-
+    const searchResult = await this.findElementBySelectors(searchSelectors, 2000);
+    if (!searchResult.found || !searchResult.element) {
       return false;
     }
 
-    await searchInput.fill(username);
-    await this.page.waitForTimeout(1000);
+    await searchResult.element.fill(username);
+    await this.wait(1000);
 
     const inviteButtonSelectors = [
       `button:has-text("Invite"):near(:text("${username}"))`,
@@ -225,20 +191,12 @@ export class ClanPage extends BasePage {
       'button:has-text("Invite")'
     ];
 
-    for (const selector of inviteButtonSelectors) {
-      try {
-        const button = this.page.locator(selector).first();
-        if (await button.isVisible({ timeout: 2000 })) {
-          await button.click();
-
-          await this.page.waitForTimeout(1000);
-          return true;
-        }
-      } catch (e) {
-        continue;
-      }
+    const inviteResult = await this.findElementBySelectors(inviteButtonSelectors, 2000);
+    if (inviteResult.found && inviteResult.element) {
+      await inviteResult.element.click();
+      await this.wait(1000);
+      return true;
     }
-
 
     return false;
   }
@@ -246,43 +204,22 @@ export class ClanPage extends BasePage {
   async openCreateChannelModal(): Promise<boolean> {
     const channelListFound = await this.findChannelList();
     if (!channelListFound) {
-
       return false;
     }
 
-    for (const selector of this.createChannelSelectors) {
-      try {
-        const element = this.page.locator(selector).first();
-        if (await element.isVisible({ timeout: 3000 })) {
-          await element.click();
-
-          await this.page.waitForTimeout(1000);
-          return true;
-        }
-      } catch (e) {
-        continue;
-      }
+    const result = await this.findElementBySelectors(this.createChannelSelectors);
+    if (result.found && result.element) {
+      await result.element.click();
+      await this.wait(1000);
+      return true;
     }
-
 
     return false;
   }
 
   async findChannelList(): Promise<boolean> {
-    for (const selector of this.channelListSelectors) {
-      try {
-        const element = this.page.locator(selector).first();
-        if (await element.isVisible({ timeout: 2000 })) {
-
-          return true;
-        }
-      } catch (e) {
-        continue;
-      }
-    }
-
-
-    return false;
+    const result = await this.findElementBySelectors(this.channelListSelectors, 2000);
+    return result.found;
   }
 
   async createChannel(channelName: string, channelType: 'text' | 'voice' = 'text'): Promise<boolean> {
@@ -291,17 +228,9 @@ export class ClanPage extends BasePage {
       `button:has-text("${channelType}")`
     ];
 
-    for (const selector of channelTypeSelectors) {
-      try {
-        const element = this.page.locator(selector).first();
-        if (await element.isVisible({ timeout: 2000 })) {
-          await element.click();
-
-          break;
-        }
-      } catch (e) {
-        continue;
-      }
+    const typeResult = await this.findElementBySelectors(channelTypeSelectors, 2000);
+    if (typeResult.found && typeResult.element) {
+      await typeResult.element.click();
     }
 
     const nameInputSelectors = [
@@ -311,27 +240,13 @@ export class ClanPage extends BasePage {
       '.channel-name-input'
     ];
 
-    let nameInput = null;
-    for (const selector of nameInputSelectors) {
-      try {
-        const element = this.page.locator(selector).first();
-        if (await element.isVisible({ timeout: 2000 })) {
-          nameInput = element;
-
-          break;
-        }
-      } catch (e) {
-        continue;
-      }
-    }
-
-    if (!nameInput) {
-
+    const nameInputResult = await this.findElementBySelectors(nameInputSelectors, 2000);
+    if (!nameInputResult.found || !nameInputResult.element) {
       return false;
     }
 
-    await nameInput.fill(channelName);
-    await this.page.waitForTimeout(500);
+    await nameInputResult.element.fill(channelName);
+    await this.wait(500);
 
     const createButtonSelectors = [
       '[data-testid="create-channel-btn"]',
@@ -341,52 +256,27 @@ export class ClanPage extends BasePage {
       '.create-channel-btn'
     ];
 
-    for (const selector of createButtonSelectors) {
-      try {
-        const button = this.page.locator(selector).first();
-        if (await button.isVisible({ timeout: 2000 })) {
-          await button.click();
-
-          await this.page.waitForTimeout(2000);
-          return true;
-        }
-      } catch (e) {
-        continue;
-      }
+    const createResult = await this.findElementBySelectors(createButtonSelectors, 2000);
+    if (createResult.found && createResult.element) {
+      await createResult.element.click();
+      await this.wait(2000);
+      return true;
     }
-
 
     return false;
   }
 
   async sendFirstMessage(message: string): Promise<boolean> {
-    let messageInput = null;
-    
-    for (const selector of this.messageInputSelectors) {
-      try {
-        const element = this.page.locator(selector).first();
-        if (await element.isVisible({ timeout: 3000 })) {
-          messageInput = element;
-
-          break;
-        }
-      } catch (e) {
-        continue;
-      }
-    }
-
-    if (!messageInput) {
-
+    const result = await this.findElementBySelectors(this.messageInputSelectors);
+    if (!result.found || !result.element) {
       return false;
     }
 
-    await messageInput.fill(message);
-    await this.page.waitForTimeout(500);
+    await result.element.fill(message);
+    await this.wait(500);
+    await result.element.press('Enter');
+    await this.wait(2000);
 
-    await messageInput.press('Enter');
-
-    await this.page.waitForTimeout(2000);
-    
     return true;
   }
 
@@ -398,18 +288,76 @@ export class ClanPage extends BasePage {
       `.chat-message:has-text("${message}")`
     ];
 
-    for (const selector of messageSelectors) {
-      try {
-        const element = this.page.locator(selector).first();
-        if (await element.isVisible({ timeout: 3000 })) {
+    const result = await this.findElementBySelectors(messageSelectors);
+    return result.found;
+  }
 
-          return true;
-        }
-      } catch (e) {
-        continue;
+  async sendImage(imagePath: string): Promise<boolean> {
+    const fileInputSelectors = [
+      'input[type="file"][accept*="image/*"]',
+      'input[type="file"]',
+    ];
+
+    // Try to find direct file input first
+    let fileInputResult = await this.findElementBySelectors(fileInputSelectors);
+    
+    if (!fileInputResult.found) {
+      // If no direct file input, try to find attach button
+      const attachButtonSelectors = [
+        'button[aria-label*="attach"]',
+        'button[aria-label*="upload"]',
+        '.attach-button',
+        '[data-icon="paperclip"]',
+        '[title*="upload"]',
+        'button:has([data-icon="paperclip"])',
+        '.message-input ~ button',
+      ];
+
+      const attachResult = await this.findElementBySelectors(attachButtonSelectors);
+      if (attachResult.found && attachResult.element) {
+        await attachResult.element.click();
+        await this.wait(1000);
+        
+        // Try to find file input after clicking attach
+        fileInputResult = await this.findElementBySelectors(fileInputSelectors);
       }
     }
 
+    if (!fileInputResult.found || !fileInputResult.element) {
+      return false;
+    }
+
+    await fileInputResult.element.setInputFiles(imagePath);
+    await this.wait(3000);
+
+    const messageInputResult = await this.findElementBySelectors(this.messageInputSelectors);
+    if (messageInputResult.found && messageInputResult.element) {
+      await messageInputResult.element.press('Enter');
+    }
+
+    await this.wait(5000);
+    return true;
+  }
+
+  async verifyImageMessage(): Promise<boolean> {
+    const imageMessageSelectors = [
+      'div.message img[src]',
+      '.chat-message img',
+      '[data-testid="message-content"] img',
+      'img[alt*="image"]',
+    ];
+
+    // Check if any image is visible (use last() to get most recent)
+    for (const selector of imageMessageSelectors) {
+      try {
+        const element = this.page.locator(selector).last();
+        if (await element.isVisible({ timeout: 3000 })) {
+          return true;
+        }
+      } catch {
+        continue;
+      }
+    }
 
     return false;
   }
