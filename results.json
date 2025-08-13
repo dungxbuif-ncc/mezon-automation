@@ -1,8 +1,8 @@
 {
   "config": {
-    "configFile": "/Users/kientrinh/Desktop/mezon-automation/playwright.config.ts",
-    "rootDir": "/Users/kientrinh/Desktop/mezon-automation/src/tests",
-    "forbidOnly": true,
+    "configFile": "D:\\TrainingCourseNCC\\Mezon%20Automation\\playwright.config.ts",
+    "rootDir": "D:/TrainingCourseNCC/Mezon%20Automation/src/tests",
+    "forbidOnly": false,
     "fullyParallel": true,
     "globalSetup": null,
     "globalTeardown": null,
@@ -32,10 +32,10 @@
         }
       ],
       [
-        "/Users/kientrinh/Desktop/mezon-automation/node_modules/ortoni-report/dist/ortoni-report.js",
+        "D:\\TrainingCourseNCC\\Mezon%20Automation\\node_modules\\ortoni-report\\dist\\ortoni-report.js",
         {
           "logo": "",
-          "open": "never",
+          "open": "always",
           "folderPath": "ortoni-reports",
           "filename": "index.html",
           "title": "Mezon Automation Test Report",
@@ -65,15 +65,15 @@
     "quiet": false,
     "projects": [
       {
-        "outputDir": "/Users/kientrinh/Desktop/mezon-automation/test-results",
+        "outputDir": "D:/TrainingCourseNCC/Mezon%20Automation/test-results",
         "repeatEach": 1,
-        "retries": 2,
+        "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
         "id": "setup",
         "name": "setup",
-        "testDir": "/Users/kientrinh/Desktop/mezon-automation/src/tests",
+        "testDir": "D:/TrainingCourseNCC/Mezon%20Automation/src/tests",
         "testIgnore": [],
         "testMatch": [
           "/.*\\.setup\\.ts/"
@@ -81,15 +81,15 @@
         "timeout": 60000
       },
       {
-        "outputDir": "/Users/kientrinh/Desktop/mezon-automation/test-results",
+        "outputDir": "D:/TrainingCourseNCC/Mezon%20Automation/test-results",
         "repeatEach": 1,
-        "retries": 2,
+        "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
         "id": "chromium-traditional",
         "name": "chromium-traditional",
-        "testDir": "/Users/kientrinh/Desktop/mezon-automation/src/tests",
+        "testDir": "D:/TrainingCourseNCC/Mezon%20Automation/src/tests",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -97,15 +97,15 @@
         "timeout": 300000
       },
       {
-        "outputDir": "/Users/kientrinh/Desktop/mezon-automation/test-results",
+        "outputDir": "D:/TrainingCourseNCC/Mezon%20Automation/test-results",
         "repeatEach": 1,
-        "retries": 2,
+        "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
         "id": "chromium-bdd-login",
         "name": "chromium-bdd-login",
-        "testDir": "/Users/kientrinh/Desktop/mezon-automation/.features-gen/login",
+        "testDir": "D:/TrainingCourseNCC/Mezon%20Automation/.features-gen/login",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -113,15 +113,15 @@
         "timeout": 300000
       },
       {
-        "outputDir": "/Users/kientrinh/Desktop/mezon-automation/test-results",
+        "outputDir": "D:/TrainingCourseNCC/Mezon%20Automation/test-results",
         "repeatEach": 1,
-        "retries": 2,
+        "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
         "id": "chromium-bdd-no-auth",
         "name": "chromium-bdd-no-auth",
-        "testDir": "/Users/kientrinh/Desktop/mezon-automation/.features-gen/no-auth",
+        "testDir": "D:/TrainingCourseNCC/Mezon%20Automation/.features-gen/no-auth",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -129,15 +129,15 @@
         "timeout": 300000
       },
       {
-        "outputDir": "/Users/kientrinh/Desktop/mezon-automation/test-results",
+        "outputDir": "D:/TrainingCourseNCC/Mezon%20Automation/test-results",
         "repeatEach": 1,
-        "retries": 2,
+        "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
         "id": "chromium-bdd-auth",
         "name": "chromium-bdd-auth",
-        "testDir": "/Users/kientrinh/Desktop/mezon-automation/.features-gen/auth",
+        "testDir": "D:/TrainingCourseNCC/Mezon%20Automation/.features-gen/auth",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -149,7 +149,7 @@
     "updateSnapshots": "missing",
     "updateSourceMethod": "patch",
     "version": "1.54.2",
-    "workers": 1,
+    "workers": 4,
     "webServer": null
   },
   "suites": [
@@ -175,12 +175,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 137,
+                  "duration": 573,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-08-07T17:06:51.047Z",
+                  "startTime": "2025-08-13T07:40:51.647Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -196,271 +196,74 @@
       ]
     },
     {
-      "title": "../../.features-gen/auth/src/features/chatInterface.feature.spec.js",
-      "file": "../../.features-gen/auth/src/features/chatInterface.feature.spec.js",
+      "title": "e2e\\create-text-channel.spec.ts",
+      "file": "e2e/create-text-channel.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Chat Interface Search Input",
-          "file": "../../.features-gen/auth/src/features/chatInterface.feature.spec.js",
-          "line": 4,
+          "title": "Create Text Channels",
+          "file": "e2e/create-text-channel.spec.ts",
+          "line": 5,
           "column": 6,
           "specs": [
             {
-              "title": "Verify \"Find or start a conversation\" input exists",
-              "ok": false,
+              "title": "should cancel creation of voice channel with name containing special characters",
+              "ok": true,
               "tags": [],
               "tests": [
                 {
                   "timeout": 300000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "chromium-bdd-auth",
-                  "projectName": "chromium-bdd-auth",
+                  "projectId": "chromium-traditional",
+                  "projectName": "chromium-traditional",
                   "results": [
                     {
                       "workerIndex": 1,
                       "parallelIndex": 0,
-                      "status": "failed",
-                      "duration": 35158,
-                      "error": {
-                        "message": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.",
-                        "stack": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.\n    at Object.<anonymous> (/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts:43:14)\n    at /Users/kientrinh/Desktop/mezon-automation/.features-gen/auth/src/features/chatInterface.feature.spec.js:11:5",
-                        "location": {
-                          "file": "/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts",
-                          "column": 14,
-                          "line": 43
-                        },
-                        "snippet": "\u001b[90m   at \u001b[39m../features/steps/chatInterface.ts:43\n\n\u001b[0m \u001b[90m 41 |\u001b[39m   }\n \u001b[90m 42 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/chat/direct/friends'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   \n \u001b[90m 46 |\u001b[39m   currentUrl \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39murl()\u001b[33m;\u001b[39m\u001b[0m"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts",
-                            "column": 14,
-                            "line": 43
-                          },
-                          "message": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.\n\n\u001b[90m   at \u001b[39m../features/steps/chatInterface.ts:43\n\n\u001b[0m \u001b[90m 41 |\u001b[39m   }\n \u001b[90m 42 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/chat/direct/friends'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   \n \u001b[90m 46 |\u001b[39m   currentUrl \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39murl()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at Object.<anonymous> (/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts:43:14)\u001b[22m\n\u001b[2m    at /Users/kientrinh/Desktop/mezon-automation/.features-gen/auth/src/features/chatInterface.feature.spec.js:11:5\u001b[22m"
-                        }
-                      ],
+                      "status": "passed",
+                      "duration": 38810,
+                      "errors": [],
                       "stdout": [
                         {
-                          "text": "mezon_session not found or error: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n"
+                          "text": "On landing page, clicking \"Open Mezon\" button...\n"
                         },
                         {
-                          "text": "🔍 localStorage mezon_session available: true\n"
+                          "text": "Found \"Open Mezon\" button using: a:has-text(\"Open Mezon\")\n"
+                        },
+                        {
+                          "text": "After navigation: https://dev-mezon.nccsoft.vn/chat/direct/friends\n"
+                        },
+                        {
+                          "text": "Cancelled creation of voice channel: text-channel-cancel\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
                       "steps": [
                         {
-                          "title": "Given I navigate to the chat page after authentication",
-                          "duration": 34303,
-                          "error": {
-                            "message": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.",
-                            "stack": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.\n    at Object.<anonymous> (/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts:43:14)\n    at /Users/kientrinh/Desktop/mezon-automation/.features-gen/auth/src/features/chatInterface.feature.spec.js:11:5",
-                            "location": {
-                              "file": "/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts",
-                              "column": 14,
-                              "line": 43
-                            },
-                            "snippet": "\u001b[90m   at \u001b[39m../features/steps/chatInterface.ts:43\n\n\u001b[0m \u001b[90m 41 |\u001b[39m   }\n \u001b[90m 42 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/chat/direct/friends'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   \n \u001b[90m 46 |\u001b[39m   currentUrl \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39murl()\u001b[33m;\u001b[39m\u001b[0m"
-                          }
+                          "title": "Attempt to create voice channel named \"text-channel-cancel\" and cancel",
+                          "duration": 17074
+                        },
+                        {
+                          "title": "Verify voice channel was NOT created",
+                          "duration": 15013
                         }
                       ],
-                      "startTime": "2025-08-07T17:06:51.698Z",
+                      "startTime": "2025-08-13T07:40:53.653Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/kientrinh/Desktop/mezon-automation/test-results/src-features-chatInterface-4c729-a-conversation-input-exists-chromium-bdd-auth/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/Users/kientrinh/Desktop/mezon-automation/test-results/src-features-chatInterface-4c729-a-conversation-input-exists-chromium-bdd-auth/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/kientrinh/Desktop/mezon-automation/test-results/src-features-chatInterface-4c729-a-conversation-input-exists-chromium-bdd-auth/error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts",
-                        "column": 14,
-                        "line": 43
-                      }
-                    },
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 0,
-                      "status": "failed",
-                      "duration": 34932,
-                      "error": {
-                        "message": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.",
-                        "stack": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.\n    at Object.<anonymous> (/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts:43:14)\n    at /Users/kientrinh/Desktop/mezon-automation/.features-gen/auth/src/features/chatInterface.feature.spec.js:11:5",
-                        "location": {
-                          "file": "/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts",
-                          "column": 14,
-                          "line": 43
-                        },
-                        "snippet": "\u001b[90m   at \u001b[39m../features/steps/chatInterface.ts:43\n\n\u001b[0m \u001b[90m 41 |\u001b[39m   }\n \u001b[90m 42 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/chat/direct/friends'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   \n \u001b[90m 46 |\u001b[39m   currentUrl \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39murl()\u001b[33m;\u001b[39m\u001b[0m"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts",
-                            "column": 14,
-                            "line": 43
-                          },
-                          "message": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.\n\n\u001b[90m   at \u001b[39m../features/steps/chatInterface.ts:43\n\n\u001b[0m \u001b[90m 41 |\u001b[39m   }\n \u001b[90m 42 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/chat/direct/friends'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   \n \u001b[90m 46 |\u001b[39m   currentUrl \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39murl()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at Object.<anonymous> (/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts:43:14)\u001b[22m\n\u001b[2m    at /Users/kientrinh/Desktop/mezon-automation/.features-gen/auth/src/features/chatInterface.feature.spec.js:11:5\u001b[22m"
-                        }
-                      ],
-                      "stdout": [
-                        {
-                          "text": "mezon_session not found or error: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n"
-                        },
-                        {
-                          "text": "🔍 localStorage mezon_session available: true\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 1,
-                      "steps": [
-                        {
-                          "title": "Given I navigate to the chat page after authentication",
-                          "duration": 34047,
-                          "error": {
-                            "message": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.",
-                            "stack": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.\n    at Object.<anonymous> (/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts:43:14)\n    at /Users/kientrinh/Desktop/mezon-automation/.features-gen/auth/src/features/chatInterface.feature.spec.js:11:5",
-                            "location": {
-                              "file": "/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts",
-                              "column": 14,
-                              "line": 43
-                            },
-                            "snippet": "\u001b[90m   at \u001b[39m../features/steps/chatInterface.ts:43\n\n\u001b[0m \u001b[90m 41 |\u001b[39m   }\n \u001b[90m 42 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/chat/direct/friends'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   \n \u001b[90m 46 |\u001b[39m   currentUrl \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39murl()\u001b[33m;\u001b[39m\u001b[0m"
-                          }
-                        }
-                      ],
-                      "startTime": "2025-08-07T17:07:27.240Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/kientrinh/Desktop/mezon-automation/test-results/src-features-chatInterface-4c729-a-conversation-input-exists-chromium-bdd-auth-retry1/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/Users/kientrinh/Desktop/mezon-automation/test-results/src-features-chatInterface-4c729-a-conversation-input-exists-chromium-bdd-auth-retry1/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/kientrinh/Desktop/mezon-automation/test-results/src-features-chatInterface-4c729-a-conversation-input-exists-chromium-bdd-auth-retry1/error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/kientrinh/Desktop/mezon-automation/test-results/src-features-chatInterface-4c729-a-conversation-input-exists-chromium-bdd-auth-retry1/trace.zip"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts",
-                        "column": 14,
-                        "line": 43
-                      }
-                    },
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 0,
-                      "status": "failed",
-                      "duration": 35156,
-                      "error": {
-                        "message": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.",
-                        "stack": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.\n    at Object.<anonymous> (/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts:43:14)\n    at /Users/kientrinh/Desktop/mezon-automation/.features-gen/auth/src/features/chatInterface.feature.spec.js:11:5",
-                        "location": {
-                          "file": "/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts",
-                          "column": 14,
-                          "line": 43
-                        },
-                        "snippet": "\u001b[90m   at \u001b[39m../features/steps/chatInterface.ts:43\n\n\u001b[0m \u001b[90m 41 |\u001b[39m   }\n \u001b[90m 42 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/chat/direct/friends'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   \n \u001b[90m 46 |\u001b[39m   currentUrl \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39murl()\u001b[33m;\u001b[39m\u001b[0m"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts",
-                            "column": 14,
-                            "line": 43
-                          },
-                          "message": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.\n\n\u001b[90m   at \u001b[39m../features/steps/chatInterface.ts:43\n\n\u001b[0m \u001b[90m 41 |\u001b[39m   }\n \u001b[90m 42 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/chat/direct/friends'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   \n \u001b[90m 46 |\u001b[39m   currentUrl \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39murl()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at Object.<anonymous> (/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts:43:14)\u001b[22m\n\u001b[2m    at /Users/kientrinh/Desktop/mezon-automation/.features-gen/auth/src/features/chatInterface.feature.spec.js:11:5\u001b[22m"
-                        }
-                      ],
-                      "stdout": [
-                        {
-                          "text": "mezon_session not found or error: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n"
-                        },
-                        {
-                          "text": "🔍 localStorage mezon_session available: true\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 2,
-                      "steps": [
-                        {
-                          "title": "Given I navigate to the chat page after authentication",
-                          "duration": 34270,
-                          "error": {
-                            "message": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.",
-                            "stack": "TimeoutError: page.waitForLoadState: Timeout 30000ms exceeded.\n    at Object.<anonymous> (/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts:43:14)\n    at /Users/kientrinh/Desktop/mezon-automation/.features-gen/auth/src/features/chatInterface.feature.spec.js:11:5",
-                            "location": {
-                              "file": "/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts",
-                              "column": 14,
-                              "line": 43
-                            },
-                            "snippet": "\u001b[90m   at \u001b[39m../features/steps/chatInterface.ts:43\n\n\u001b[0m \u001b[90m 41 |\u001b[39m   }\n \u001b[90m 42 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/chat/direct/friends'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   \n \u001b[90m 46 |\u001b[39m   currentUrl \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39murl()\u001b[33m;\u001b[39m\u001b[0m"
-                          }
-                        }
-                      ],
-                      "startTime": "2025-08-07T17:08:02.617Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/kientrinh/Desktop/mezon-automation/test-results/src-features-chatInterface-4c729-a-conversation-input-exists-chromium-bdd-auth-retry2/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/Users/kientrinh/Desktop/mezon-automation/test-results/src-features-chatInterface-4c729-a-conversation-input-exists-chromium-bdd-auth-retry2/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/kientrinh/Desktop/mezon-automation/test-results/src-features-chatInterface-4c729-a-conversation-input-exists-chromium-bdd-auth-retry2/error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/kientrinh/Desktop/mezon-automation/src/features/steps/chatInterface.ts",
-                        "column": 14,
-                        "line": 43
-                      }
+                      "attachments": []
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
-              "id": "3e88a26941217533272d-c4b4723e0f80d6cd7671",
-              "file": "../../.features-gen/auth/src/features/chatInterface.feature.spec.js",
-              "line": 10,
-              "column": 3
+              "id": "2b8ec9fd6de2b25d0f80-097cfa8b9fef76cb9049",
+              "file": "e2e/create-text-channel.spec.ts",
+              "line": 92,
+              "column": 5
             }
           ]
         }
@@ -469,11 +272,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-08-07T17:06:50.726Z",
-    "duration": 107151.168,
-    "expected": 1,
+    "startTime": "2025-08-13T07:40:50.575Z",
+    "duration": 42365.303,
+    "expected": 2,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 0,
     "flaky": 0
   }
 }
