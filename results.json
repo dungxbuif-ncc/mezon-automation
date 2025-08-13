@@ -175,12 +175,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 573,
+                  "duration": 468,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-08-13T07:40:51.647Z",
+                  "startTime": "2025-08-13T09:56:50.075Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -196,20 +196,20 @@
       ]
     },
     {
-      "title": "e2e\\create-text-channel.spec.ts",
-      "file": "e2e/create-text-channel.spec.ts",
+      "title": "e2e\\create-category.spec.ts",
+      "file": "e2e/create-category.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Create Text Channels",
-          "file": "e2e/create-text-channel.spec.ts",
+          "title": "Create Category",
+          "file": "e2e/create-category.spec.ts",
           "line": 5,
           "column": 6,
           "specs": [
             {
-              "title": "should cancel creation of voice channel with name containing special characters",
+              "title": "should cancel creation of category with name containing special characters",
               "ok": true,
               "tags": [],
               "tests": [
@@ -224,7 +224,7 @@
                       "workerIndex": 1,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 38810,
+                      "duration": 18150,
                       "errors": [],
                       "stdout": [
                         {
@@ -237,22 +237,22 @@
                           "text": "After navigation: https://dev-mezon.nccsoft.vn/chat/direct/friends\n"
                         },
                         {
-                          "text": "Cancelled creation of voice channel: text-channel-cancel\n"
+                          "text": "Cancelled creation of voice channel: category-cancel\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
                       "steps": [
                         {
-                          "title": "Attempt to create voice channel named \"text-channel-cancel\" and cancel",
-                          "duration": 17074
+                          "title": "Attempt to create voice channel named \"category-cancel\" and cancel",
+                          "duration": 6153
                         },
                         {
                           "title": "Verify voice channel was NOT created",
-                          "duration": 15013
+                          "duration": 5013
                         }
                       ],
-                      "startTime": "2025-08-13T07:40:53.653Z",
+                      "startTime": "2025-08-13T09:56:51.983Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -260,9 +260,9 @@
                   "status": "expected"
                 }
               ],
-              "id": "2b8ec9fd6de2b25d0f80-097cfa8b9fef76cb9049",
-              "file": "e2e/create-text-channel.spec.ts",
-              "line": 92,
+              "id": "e776eee05f97a3e25f3e-94bccf2d18e2a0d3d89f",
+              "file": "e2e/create-category.spec.ts",
+              "line": 91,
               "column": 5
             }
           ]
@@ -272,8 +272,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-08-13T07:40:50.575Z",
-    "duration": 42365.303,
+    "startTime": "2025-08-13T09:56:48.976Z",
+    "duration": 21674.29,
     "expected": 2,
     "skipped": 0,
     "unexpected": 0,
