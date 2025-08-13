@@ -65,7 +65,6 @@ export class OnboardingPage extends BasePage {
       }
     }
 
-
     return false;
   }
 
@@ -74,7 +73,6 @@ export class OnboardingPage extends BasePage {
       try {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 2000 })) {
-
           return true;
         }
       } catch (e) {
@@ -129,7 +127,6 @@ export class OnboardingPage extends BasePage {
       }
     }
 
-
     return { found: false, isDone: false };
   }
 
@@ -149,6 +146,53 @@ export class OnboardingPage extends BasePage {
     };
   }
 
+  // async waitForTaskToBeMarkedDone(taskType: 'sendFirstMessage' | 'invitePeople' | 'createChannel', timeoutMs: number = 5000): Promise<boolean> {
+  //   console.log(`Waiting for task "${taskType}" to be marked as done...`);
+
+  //   const startTime = Date.now();
+
+  //   while (Date.now() - startTime < timeoutMs) {
+  //     const taskStatus = await this.getTaskStatus(taskType);
+
+  //     if (taskStatus.found && taskStatus.isDone) {
+  //       console.log(`Task "${taskType}" is now marked as done!`);
+  //       return true;
+  //     }
+
+  //     await this.page.waitForTimeout(500);
+  //   }
+
+  //   console.log(`Task "${taskType}" was not marked as done within ${timeoutMs}ms`);
+  //   return false;
+  // }
+
+  async debugOnboardingTasks(): Promise<void> {
+    console.log('Debugging onboarding tasks...');
+
+    await this.takeScreenshot('debug-onboarding-tasks');
+
+    const allTasks = this.page.locator('div:has-text("Send first message"), div:has-text("Invite People"), div:has-text("Create channel"), .task-item, .onboarding-task');
+    const count = await allTasks.count();
+
+    console.log(`Found ${count} potential task elements`);
+
+    for (let i = 0; i < Math.min(count, 10); i++) {
+      try {
+        const task = allTasks.nth(i);
+        const isVisible = await task.isVisible();
+        const text = await task.textContent();
+
+        if (isVisible && text) {
+          console.log(`  Task ${i}: "${text.slice(0, 50)}..."`);
+
+          const hasDoneIndicator = await task.locator(this.taskDoneIndicators.join(', ')).first().isVisible().catch(() => false);
+          console.log(`Done indicator: ${hasDoneIndicator}`);
+        }
+      } catch (e) {
+        console.log(`  Task ${i}: Could not inspect`);
+      }
+    }
+  }
   async waitForTaskToBeMarkedDone(
     taskType: 'sendFirstMessage' | 'invitePeople' | 'createChannel',
     timeoutMs: number = 5000
