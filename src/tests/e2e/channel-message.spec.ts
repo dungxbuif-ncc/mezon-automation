@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
-import { MessageTestHelpers } from '../../utils/messageHelpers';
+import { LINK_TEST_URLS, MessageTestHelpers } from '../../utils/messageHelpers';
 
 const MEZON_BASE_URL = 'https://dev-mezon.nccsoft.vn/';
-const DIRECT_CHAT_URL = 'https://dev-mezon.nccsoft.vn/chat/direct/message/1953659716357853184/3';
+const DIRECT_CHAT_URL = 'https://dev-mezon.nccsoft.vn/chat/direct/message/1840654754858930176/2';
 const CLAN_CHANNEL_URL = 'https://dev-mezon.nccsoft.vn/chat/clans/1840654642682269696/channels/1840654642703241216';
 const TARGET_USERNAME = 'XULxpDPsoJ';
 
@@ -355,6 +355,282 @@ test.describe('Channel Message Functionality', () => {
     
     const isMessageVisible = await messageHelpers.verifyMessageVisibleInMainChat(messageToPin);
     expect(isMessageVisible).toBeTruthy();
+    
+    await page.waitForTimeout(2000);
+  });
+
+  test('Case 13: Test hashtag channel functionality', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(3000);
+    
+    const messageInput = await messageHelpers.findMessageInput();
+    await messageInput.click();
+    await page.waitForTimeout(500);
+    
+    await messageInput.type('#');
+    await page.waitForTimeout(2000);
+    
+    const channelListVisible = await messageHelpers.verifyHashtagChannelList();
+    expect(channelListVisible).toBeTruthy();
+    
+    const hasExpectedChannels = await messageHelpers.verifyExpectedChannelsInList();
+    expect(hasExpectedChannels).toBeTruthy();
+    
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(1000);
+  });
+
+  test('Case 14: Mention user list appears with @', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(3000);
+
+    const messageInput = await messageHelpers.findMessageInput();
+    await messageInput.click();
+    await page.waitForTimeout(300);
+
+    await messageInput.type('@');
+    await page.waitForTimeout(1500);
+
+    const mentionVisible = await messageHelpers.verifyMentionListVisible();
+    expect(mentionVisible).toBeTruthy();
+
+    const hasUser = await messageHelpers.verifyMentionListHasUsers(['yTkgOodQmT', 'ytkgoodqmt']);
+    expect(hasUser).toBeTruthy();
+
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(500);
+  });
+
+  test('Case 15: Mention specific user and send message', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(3000);
+
+    const candidateNames = ['yTkgOodQmT', 'ytkgoodqmt'];
+    await messageHelpers.mentionUserAndSend('@yTkg', candidateNames);
+
+    const ok = await messageHelpers.verifyLastMessageHasMention(candidateNames);
+    expect(ok).toBeTruthy();
+  });
+
+  test('Case 16: React to a message with 3 different emojis', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(3000);
+
+    const msg = `Reaction test ${Date.now()}`;
+    await messageHelpers.sendTextMessage(msg);
+    await page.waitForTimeout(1000);
+
+    const target = await messageHelpers.findLastMessage();
+    const emojisToAdd = ['😂', '👍', '💯'];
+    const addedEmojis: string[] = [];
+    
+    for (let i = 0; i < emojisToAdd.length; i++) {
+      const emoji = emojisToAdd[i];
+      
+      const picked = await messageHelpers.reactToMessage(target, [emoji]);
+      await page.waitForTimeout(2000);
+      
+      if (picked) {
+        addedEmojis.push(picked);
+      }
+      
+      await page.waitForTimeout(500);
+    }
+
+    await page.waitForTimeout(2000);
+    
+    const hasAllReactions = await messageHelpers.verifyReactionOnMessage(target, addedEmojis);
+    expect(hasAllReactions).toBeTruthy();
+    expect(addedEmojis.length).toBeGreaterThanOrEqual(2);
+  });
+
+  test('Case 17: Reply to a message and send', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    const original = `Reply base ${Date.now()}`;
+    await messageHelpers.sendTextMessage(original);
+    await page.waitForTimeout(800);
+
+    const target = await messageHelpers.findLastMessage();
+    const replyText = `Reply content ${Date.now()}`;
+    await messageHelpers.replyToMessage(target, replyText);
+    await page.waitForTimeout(1200);
+
+    const ok = await messageHelpers.verifyLastMessageIsReplyTo(original, replyText);
+    expect(ok).toBeTruthy();
+  });
+
+  test('Case 18: Search emoji in picker and apply reaction', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    const msg = `Emoji search test ${Date.now()}`;
+    await messageHelpers.sendTextMessage(msg);
+    await page.waitForTimeout(800);
+
+    const target = await messageHelpers.findLastMessage();
+    const picked = await messageHelpers.searchAndPickEmojiFromPicker(target, ':smile:');
+    await page.waitForTimeout(1200);
+
+    const hasReaction = await messageHelpers.verifyReactionOnMessage(target, picked ? [picked] : ['😀', '😊', '🙂']);
+    expect(hasReaction).toBeTruthy();
+  });
+
+  test('Case 19: Create topic discussion and send emoji message', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    const originalMsg = `Topic starter ${Date.now()}`;
+    await messageHelpers.sendTextMessage(originalMsg);
+    await page.waitForTimeout(800);
+
+    const target = await messageHelpers.findLastMessage();
+    await messageHelpers.openTopicDiscussion(target);
+    await page.waitForTimeout(2000);
+
+    const emojiMsg = '😀🎉👍';
+    await messageHelpers.sendMessageInThread(emojiMsg);
+    await page.waitForTimeout(1200);
+
+    const allPageText = await page.textContent('body');
+    const hasEmoji = allPageText?.includes('😀') || allPageText?.includes('🎉') || allPageText?.includes('👍');
+    expect(hasEmoji).toBeTruthy();
+  });
+
+  test('Case 20: Send message from short profile in clan channel', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    await messageHelpers.clickMembersButton();
+    await messageHelpers.clickMemberInList('andynguyn19');
+    
+    const testMessage = `Test message from Case 12 short profile 11${Date.now()}`;
+    await messageHelpers.sendMessageFromShortProfile(testMessage);
+    
+    await page.waitForTimeout(2000);
+  });
+
+  test('Case 21: Send Message With Markdown', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    const markdownMessage = `\`\`\`Test markdown message with code block ${Date.now()}\`\`\``;
+    await messageHelpers.sendTextMessage(markdownMessage);
+    
+    const isMarkdownRendered = await messageHelpers.verifyMarkdownMessage(markdownMessage);
+    expect(isMarkdownRendered).toBeTruthy();
+    
+    await page.waitForTimeout(2000);
+  });
+
+  test('Case 22: Send Message with Emoji', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    const baseMessage = `Test message with emoji ${Date.now()}`;
+    const emojiQuery = ':smile';
+    
+    await messageHelpers.sendMessageWithEmojiPicker(baseMessage, emojiQuery);
+    
+    const hasEmoji = await messageHelpers.verifyLastMessageHasEmoji();
+    expect(hasEmoji).toBeTruthy();
+    
+    await page.waitForTimeout(2000);
+  });
+
+  test('Case 23: Send text too large for convert to file txt', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    const longMessage = await messageHelpers.generateLongMessage(3000);
+    const fileConverted = await messageHelpers.sendLongMessageAndCheckFileConversion(longMessage);
+    
+    expect(fileConverted).toBeTruthy();
+    
+    await page.waitForTimeout(2000);
+  });
+
+  test('Case 24: Send message with hashtag', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    const baseMessage = `Hashtag test ${Date.now()}`;
+    await messageHelpers.sendMessageWithHashtag(baseMessage, '', 'general');
+
+    const hasHashtag = await messageHelpers.verifyLastMessageHasHashtag('general');
+    expect(hasHashtag).toBeTruthy();
+    
+    await page.waitForTimeout(1500);
+  });
+
+  test('Case 25: Send message with multiple links', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+    await messageHelpers.sendMessageWithMultipleLinks(LINK_TEST_URLS);
+    
+    await page.waitForTimeout(2000);
+  });
+
+  test('Case 26: Send message with buzz (Ctrl+G)', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    messageHelpers = new MessageTestHelpers(page);
+
+    await page.goto(CLAN_CHANNEL_URL);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    const buzzMessage = `Buzz message test ${Date.now()}`;
+    
+    await messageHelpers.sendBuzzMessage(buzzMessage);
+    
+    const hasBuzzMessage = await messageHelpers.verifyLastMessageHasText(buzzMessage);
+    expect(hasBuzzMessage).toBeTruthy();
     
     await page.waitForTimeout(2000);
   });
