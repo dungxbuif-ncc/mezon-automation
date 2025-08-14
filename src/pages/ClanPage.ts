@@ -86,12 +86,10 @@ export class ClanPage extends BasePage {
       }
     }
 
-
     return false;
   }
 
   async createNewClan(clanName: string): Promise<boolean> {
-
 
     const clanNameInputSelectors = [
       '[data-testid="clan-name-input"]',
@@ -107,7 +105,6 @@ export class ClanPage extends BasePage {
         const element = this.page.locator(selector).first();
         if (await element.isVisible({ timeout: 3000 })) {
           nameInput = element;
-
           break;
         }
       } catch (e) {
@@ -116,7 +113,6 @@ export class ClanPage extends BasePage {
     }
 
     if (!nameInput) {
-
       return false;
     }
 
@@ -136,7 +132,6 @@ export class ClanPage extends BasePage {
         const button = this.page.locator(selector).first();
         if (await button.isVisible({ timeout: 2000 })) {
           await button.click();
-
           await this.page.waitForTimeout(3000);
           return true;
         }
