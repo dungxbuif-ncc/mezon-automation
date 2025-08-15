@@ -75,7 +75,7 @@ export default defineConfig({
     },
     
     {
-      name: 'chromium-traditional',
+      name: 'chromium-no-bdd',
       testDir: './src/tests',
       use: { 
         ...devices['Desktop Chrome'],
