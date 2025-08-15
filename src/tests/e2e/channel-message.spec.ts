@@ -85,7 +85,7 @@ test.describe('Channel Message Functionality', () => {
     await navigationHelpers.clickUserInChatList(TARGET_USERNAME);
   });
 
-  test('Case 1: Click into an image in the message and copy from detail', async ({ page }) => {
+  test('Click into an image in the message and copy from detail', async ({ page }) => {
     const targetImage = await messageHelpers.findImage();
     const initialImageCount = await messageHelpers.countImages();
     
@@ -98,7 +98,7 @@ test.describe('Channel Message Functionality', () => {
     expect(finalImageCount).toBeGreaterThan(initialImageCount);
   });
 
-  test('Case 2: Copy image from context menu outside the message', async ({ page }) => {
+  test('Copy image from context menu outside the message', async ({ page }) => {
     const targetImage = await messageHelpers.findImage();
     const initialImageCount = await messageHelpers.countImages();
     
@@ -109,7 +109,7 @@ test.describe('Channel Message Functionality', () => {
     expect(finalImageCount).toBeGreaterThanOrEqual(initialImageCount);
   });
 
-  test('Case 3: Copy message text and send it', async ({ page }) => {
+  test('Copy message text and send it', async ({ page }) => {
     const initialMessageCount = await messageHelpers.countMessages();
     
     const testMessage = `Test message ${Date.now()}`;
@@ -128,7 +128,7 @@ test.describe('Channel Message Functionality', () => {
     expect(finalMessageCount).toBeGreaterThan(initialMessageCount + 1);
   });
 
-  test('Case 4: Create topic discussion thread from message', async ({ page, context }) => {
+  test('Create topic discussion thread from message', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     
     messageHelpers = new MessageTestHelpers(page);
@@ -152,7 +152,7 @@ test.describe('Channel Message Functionality', () => {
     expect(finalMessageCount).toBeGreaterThanOrEqual(initialMessageCount + 1);
   });
 
-  test('Case 5: Create thread from message and send reply', async ({ page, context }) => {
+  test('Create thread from message and send reply', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     
     messageHelpers = new MessageTestHelpers(page);
@@ -177,7 +177,7 @@ test.describe('Channel Message Functionality', () => {
     expect(finalMessageCount).toBeGreaterThanOrEqual(initialMessageCount + 1);
   });
 
-  test('Case 6: Delete message', async ({ page, context }) => {
+  test('Delete message', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     
     messageHelpers = new MessageTestHelpers(page);
@@ -198,7 +198,7 @@ test.describe('Channel Message Functionality', () => {
     expect(finalMessageCount).toBeLessThanOrEqual(initialMessageCount);
   });
 
-  test('Case 7: Edit message', async ({ page, context }) => {
+  test('Edit message', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     
     messageHelpers = new MessageTestHelpers(page);
@@ -229,7 +229,7 @@ test.describe('Channel Message Functionality', () => {
     }
   });
 
-  test('Case 8: Forward message - select target and send', async ({ page, context }) => {
+  test('Forward message - select target and send', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     
     messageHelpers = new MessageTestHelpers(page);
@@ -247,7 +247,7 @@ test.describe('Channel Message Functionality', () => {
     await page.waitForTimeout(3000);
   });
 
-  test('Case 9: Forward message to general channel', async ({ page, context }) => {
+  test('Forward message to general channel', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     
     messageHelpers = new MessageTestHelpers(page);
@@ -266,7 +266,7 @@ test.describe('Channel Message Functionality', () => {
     await page.waitForTimeout(3000);
   });
 
-  test('Case 10: Pin message and verify in pinned modal', async ({ page, context }) => {
+  test('Pin message and verify in pinned modal', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     
     messageHelpers = new MessageTestHelpers(page);
@@ -318,7 +318,7 @@ test.describe('Channel Message Functionality', () => {
     await page.waitForTimeout(2000);
   });
 
-  test('Case 11: Jump to pinned message and verify in main chat', async ({ page, context }) => {
+  test('Jump to pinned message and verify in main chat', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     
     messageHelpers = new MessageTestHelpers(page);
@@ -359,7 +359,7 @@ test.describe('Channel Message Functionality', () => {
     await page.waitForTimeout(2000);
   });
 
-  test('Case 13: Test hashtag channel functionality', async ({ page, context }) => {
+  test('Test hashtag channel functionality', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
     await page.goto(CLAN_CHANNEL_URL);
@@ -383,7 +383,7 @@ test.describe('Channel Message Functionality', () => {
     await page.waitForTimeout(1000);
   });
 
-  test('Case 14: Mention user list appears with @', async ({ page, context }) => {
+  test('Mention user list appears with @', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
     await page.goto(CLAN_CHANNEL_URL);
@@ -407,7 +407,7 @@ test.describe('Channel Message Functionality', () => {
     await page.waitForTimeout(500);
   });
 
-  test('Case 15: Mention specific user and send message', async ({ page, context }) => {
+  test('Mention specific user and send message', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
     await page.goto(CLAN_CHANNEL_URL);
@@ -421,7 +421,7 @@ test.describe('Channel Message Functionality', () => {
     expect(ok).toBeTruthy();
   });
 
-  test('Case 16: React to a message with 3 different emojis', async ({ page, context }) => {
+  test('React to a message with 3 different emojis', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
     await page.goto(CLAN_CHANNEL_URL);
@@ -456,7 +456,7 @@ test.describe('Channel Message Functionality', () => {
     expect(addedEmojis.length).toBeGreaterThanOrEqual(2);
   });
 
-  test('Case 17: Reply to a message and send', async ({ page, context }) => {
+  test('Reply to a message and send', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
     await page.goto(CLAN_CHANNEL_URL);
@@ -476,7 +476,7 @@ test.describe('Channel Message Functionality', () => {
     expect(ok).toBeTruthy();
   });
 
-  test('Case 18: Search emoji in picker and apply reaction', async ({ page, context }) => {
+  test('Search emoji in picker and apply reaction', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
     await page.goto(CLAN_CHANNEL_URL);
@@ -495,7 +495,7 @@ test.describe('Channel Message Functionality', () => {
     expect(hasReaction).toBeTruthy();
   });
 
-  test('Case 19: Create topic discussion and send emoji message', async ({ page, context }) => {
+  test('Create topic discussion and send emoji message', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
     await page.goto(CLAN_CHANNEL_URL);
@@ -519,7 +519,7 @@ test.describe('Channel Message Functionality', () => {
     expect(hasEmoji).toBeTruthy();
   });
 
-  test('Case 20: Send message from short profile in clan channel', async ({ page, context }) => {
+  test('Send message from short profile in clan channel', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
 
@@ -536,7 +536,7 @@ test.describe('Channel Message Functionality', () => {
     await page.waitForTimeout(2000);
   });
 
-  test('Case 21: Send Message With Markdown', async ({ page, context }) => {
+  test('Send Message With Markdown', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
 
@@ -553,7 +553,7 @@ test.describe('Channel Message Functionality', () => {
     await page.waitForTimeout(2000);
   });
 
-  test('Case 22: Send Message with Emoji', async ({ page, context }) => {
+  test('Send Message with Emoji', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
 
@@ -572,7 +572,7 @@ test.describe('Channel Message Functionality', () => {
     await page.waitForTimeout(2000);
   });
 
-  test('Case 23: Send text too large for convert to file txt', async ({ page, context }) => {
+  test('Send text too large for convert to file txt', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
 
@@ -588,7 +588,7 @@ test.describe('Channel Message Functionality', () => {
     await page.waitForTimeout(2000);
   });
 
-  test('Case 24: Send message with hashtag', async ({ page, context }) => {
+  test('Send message with hashtag', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
 
@@ -605,7 +605,7 @@ test.describe('Channel Message Functionality', () => {
     await page.waitForTimeout(1500);
   });
 
-  test('Case 25: Send message with multiple links', async ({ page, context }) => {
+  test('Send message with multiple links', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
 
@@ -617,7 +617,7 @@ test.describe('Channel Message Functionality', () => {
     await page.waitForTimeout(2000);
   });
 
-  test('Case 26: Send message with buzz (Ctrl+G)', async ({ page, context }) => {
+  test('Send message with buzz (Ctrl+G)', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     messageHelpers = new MessageTestHelpers(page);
 
