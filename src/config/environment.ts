@@ -49,9 +49,9 @@ export const WEBSITE_CONFIGS = {
  */
 export const SESSION_CONFIGS = {
   MEZON_SESSION: {
-    host: process.env.MEZON_SESSION_HOST || 'api.mezon.ai',
-    port: process.env.MEZON_SESSION_PORT || '',
-    ssl: process.env.MEZON_SESSION_SSL !== 'false',
+    host: process.env.MEZON_SESSION_HOST || 'dev-mezon.nccsoft.vn',
+    port: process.env.MEZON_SESSION_PORT || '7305',
+    ssl: process.env.MEZON_SESSION_SSL !== 'false' || true,
   },
 } as const;
 
