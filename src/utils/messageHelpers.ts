@@ -926,10 +926,19 @@ export class MessageTestHelpers {
   async findPinMessageOption(): Promise<Locator> {
     const selectors = [
       'text="Pin Message"',
+      'text="Pin"',
       '[role="menuitem"]:has-text("Pin")',
       'div:has-text("Pin Message")',
       'span:has-text("Pin Message")',
-      'button:has-text("Pin Message")'
+      'button:has-text("Pin Message")',
+      'li:has-text("Pin")',
+      'div:has-text("Pin")',
+      'span:has-text("Pin")',
+      '[data-testid*="pin"]',
+      '[aria-label*="pin" i]',
+      '[title*="pin" i]',
+      '.context-menu-item:has-text("Pin")',
+      '.menu-item:has-text("Pin")'
     ];
 
     for (const selector of selectors) {
@@ -939,12 +948,44 @@ export class MessageTestHelpers {
       }
     }
     
+    const allElements = this.page.locator('*');
+    const count = await allElements.count();
+    
+    for (let i = 0; i < count; i++) {
+      const element = allElements.nth(i);
+      try {
+        const text = await element.textContent();
+        if (text && text.toLowerCase().includes('pin') && await element.isVisible({ timeout: 1000 })) {
+          return element;
+        }
+      } catch (e) {
+        continue;
+      }
+    }
+    
     throw new Error('Could not find Pin Message option in context menu');
   }
 
   async pinMessage(messageElement: Locator): Promise<void> {
     await messageElement.click({ button: 'right' });
     await this.page.waitForTimeout(1000);
+    
+    const contextMenuSelectors = [
+      '[role="menu"]',
+      '.context-menu',
+      '.menu',
+      '[class*="context"]',
+      '[class*="menu"]'
+    ];
+    
+    for (const selector of contextMenuSelectors) {
+      const menu = this.page.locator(selector);
+      if (await menu.isVisible({ timeout: 2000 })) {
+        const menuText = await menu.textContent();
+        console.log('Context menu content:', menuText);
+        break;
+      }
+    }
     
     const pinOption = await this.findPinMessageOption();
     await pinOption.click();

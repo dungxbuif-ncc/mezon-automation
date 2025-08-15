@@ -361,4 +361,40 @@ export class ClanPage extends BasePage {
 
     return false;
   }
+
+  async getAllClanNames(): Promise<string[]> {
+    const clanElements = this.page.locator('.clan');
+    const count = await clanElements.count();
+    const names = [];
+    for (let i = 0; i < count; i++) {
+      const name = (await clanElements.nth(i).textContent())?.trim();
+      if (name) names.push(name);
+    }
+    return names;
+  }
+
+  async clickClanByName(targetName: string) {
+    const clanElements = this.page.locator('.clan');
+    const count = await clanElements.count();
+    for (let i = 0; i < count; i++) {
+      const el = clanElements.nth(i);
+      const name = (await el.textContent())?.trim();
+      if (name === targetName) {
+        await el.click();
+        return true;
+      }
+    }
+    throw new Error(`Clan "${targetName}" not found`);
+  }
+
+  async isClanSelected(name: string) {
+    const selectedName = await this.page.textContent(
+      'p.text-theme-primary-active.text-base.font-semibold.select-none.one-line'
+    );
+
+    const firstChar = selectedName?.trim().charAt(0);
+    console.log('First char:', firstChar);
+
+    return firstChar === name;
+  }
 }

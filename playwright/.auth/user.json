@@ -41,6 +41,10 @@
           "value": "{\"byClans\":\"{\\\"0\\\":{\\\"entities\\\":{\\\"ids\\\":[],\\\"entities\\\":{}},\\\"currentChannelId\\\":\\\"\\\",\\\"selectedChannelId\\\":null,\\\"currentVoiceChannelId\\\":\\\"\\\",\\\"idChannelSelected\\\":{},\\\"modeResponsive\\\":\\\"dm\\\",\\\"previousChannels\\\":[],\\\"appChannelsList\\\":{},\\\"appChannelsListShowOnPopUp\\\":[],\\\"fetchChannelSuccess\\\":false,\\\"favoriteChannels\\\":[],\\\"buzzState\\\":{},\\\"appFocused\\\":{},\\\"scrollOffset\\\":{},\\\"showScrollDownButton\\\":{}}}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"socketStatus\":\"\\\"not loaded\\\"\",\"error\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
         },
         {
+          "name": "persist:apps",
+          "value": "{\"theme\":\"\\\"light\\\"\",\"loadingStatus\":\"\\\"loaded\\\"\",\"initialParams\":\"{}\",\"initialPath\":\"\\\"/login/callback\\\"\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\",\"isShowPopupQuickMess\":\"false\",\"closeMenu\":\"false\"}"
+        },
+        {
           "name": "persist:defaultnotificationcategory",
           "value": "{\"byClans\":\"{}\",\"loadingStatus\":\"\\\"not loaded\\\"\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
         },

@@ -1,8 +1,8 @@
 {
   "config": {
-    "configFile": "/Users/kientrinh/Desktop/mezon-automation/playwright.config.ts",
-    "rootDir": "/Users/kientrinh/Desktop/mezon-automation/src/tests",
-    "forbidOnly": true,
+    "configFile": "D:\\TrainingCourseNCC\\Mezon%20Automation\\playwright.config.ts",
+    "rootDir": "D:/TrainingCourseNCC/Mezon%20Automation/src/tests",
+    "forbidOnly": false,
     "fullyParallel": true,
     "globalSetup": null,
     "globalTeardown": null,
@@ -32,10 +32,10 @@
         }
       ],
       [
-        "/Users/kientrinh/Desktop/mezon-automation/node_modules/ortoni-report/dist/ortoni-report.js",
+        "D:\\TrainingCourseNCC\\Mezon%20Automation\\node_modules\\ortoni-report\\dist\\ortoni-report.js",
         {
           "logo": "",
-          "open": "never",
+          "open": "always",
           "folderPath": "ortoni-reports",
           "filename": "index.html",
           "title": "Mezon Automation Test Report",
@@ -65,15 +65,15 @@
     "quiet": false,
     "projects": [
       {
-        "outputDir": "/Users/kientrinh/Desktop/mezon-automation/test-results",
+        "outputDir": "D:/TrainingCourseNCC/Mezon%20Automation/test-results",
         "repeatEach": 1,
-        "retries": 2,
+        "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
         "id": "setup",
         "name": "setup",
-        "testDir": "/Users/kientrinh/Desktop/mezon-automation/src/tests",
+        "testDir": "D:/TrainingCourseNCC/Mezon%20Automation/src/tests",
         "testIgnore": [],
         "testMatch": [
           "/.*\\.setup\\.ts/"
@@ -81,9 +81,9 @@
         "timeout": 60000
       },
       {
-        "outputDir": "/Users/kientrinh/Desktop/mezon-automation/test-results",
+        "outputDir": "D:/TrainingCourseNCC/Mezon%20Automation/test-results",
         "repeatEach": 1,
-        "retries": 2,
+        "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
@@ -97,15 +97,15 @@
         "timeout": 300000
       },
       {
-        "outputDir": "/Users/kientrinh/Desktop/mezon-automation/test-results",
+        "outputDir": "D:/TrainingCourseNCC/Mezon%20Automation/test-results",
         "repeatEach": 1,
-        "retries": 2,
+        "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
         "id": "chromium-bdd-login",
         "name": "chromium-bdd-login",
-        "testDir": "/Users/kientrinh/Desktop/mezon-automation/.features-gen/login",
+        "testDir": "D:/TrainingCourseNCC/Mezon%20Automation/.features-gen/login",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -113,15 +113,15 @@
         "timeout": 300000
       },
       {
-        "outputDir": "/Users/kientrinh/Desktop/mezon-automation/test-results",
+        "outputDir": "D:/TrainingCourseNCC/Mezon%20Automation/test-results",
         "repeatEach": 1,
-        "retries": 2,
+        "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
         "id": "chromium-bdd-no-auth",
         "name": "chromium-bdd-no-auth",
-        "testDir": "/Users/kientrinh/Desktop/mezon-automation/.features-gen/no-auth",
+        "testDir": "D:/TrainingCourseNCC/Mezon%20Automation/.features-gen/no-auth",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -129,15 +129,15 @@
         "timeout": 300000
       },
       {
-        "outputDir": "/Users/kientrinh/Desktop/mezon-automation/test-results",
+        "outputDir": "D:/TrainingCourseNCC/Mezon%20Automation/test-results",
         "repeatEach": 1,
-        "retries": 2,
+        "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
         "id": "chromium-bdd-auth",
         "name": "chromium-bdd-auth",
-        "testDir": "/Users/kientrinh/Desktop/mezon-automation/.features-gen/auth",
+        "testDir": "D:/TrainingCourseNCC/Mezon%20Automation/.features-gen/auth",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -149,7 +149,7 @@
     "updateSnapshots": "missing",
     "updateSourceMethod": "patch",
     "version": "1.54.2",
-    "workers": 1,
+    "workers": 4,
     "webServer": null
   },
   "suites": [

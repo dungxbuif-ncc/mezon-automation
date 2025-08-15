@@ -4,7 +4,7 @@ import { LINK_TEST_URLS, MessageTestHelpers } from '../../utils/messageHelpers';
 const MEZON_BASE_URL = 'https://dev-mezon.nccsoft.vn/';
 const DIRECT_CHAT_URL = 'https://dev-mezon.nccsoft.vn/chat/direct/message/1840654754858930176/2';
 const CLAN_CHANNEL_URL = 'https://dev-mezon.nccsoft.vn/chat/clans/1840654642682269696/channels/1840654642703241216';
-const TARGET_USERNAME = 'XULxpDPsoJ';
+const TARGET_USERNAME = 'andynguyn19';
 
 interface NavigationHelpers {
   navigateToHomePage(): Promise<void>;
