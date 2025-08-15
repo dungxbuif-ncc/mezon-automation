@@ -20,6 +20,7 @@ auth/
 .env
 .env.local
 .env.*.local
+results.json
 
 # IDE files
 .vscode/
@@ -63,3 +64,4 @@ coverage/
 /test-results/
 /playwright-report/
 /playwright/.cache/
+/playwright/.auth/
