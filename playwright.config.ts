@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
 import { OrtoniReportConfig } from 'ortoni-report';
+import type { GitHubActionOptions } from '@estruyf/github-actions-reporter';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -47,6 +48,18 @@ export default defineConfig({
     ['html', { open: 'never' }],
     ['json', { outputFile: 'results.json' }],
     ['ortoni-report', reportConfig],
+    [
+      '@estruyf/github-actions-reporter',
+      <GitHubActionOptions>{
+        title: 'Mezon Automation Test Results',
+        useDetails: true,
+        showError: true,
+        showTags: true,
+        showAnnotations: true,
+        includeResults: ['pass', 'skipped', 'fail', 'flaky'],
+        showArtifactsLink: true,
+      },
+    ],
   ],
 
   // Global setup and teardown - disabled to let auth.setup.ts handle auth

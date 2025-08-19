@@ -7,19 +7,23 @@ on:
         description: 'Test suite to run'
         required: true
         default: 'all'
-        # type: choice
-        # options:
-        #   - all
-        #   - bdd
-        #   - no-bdd
-        #   - smoke
-        #   - regression
-        #   - setup
+        type: choice
+        options:
+          - all
+          - bdd
+          - no-bdd
+          - smoke
+          - regression
+          - setup
 
 jobs:
-  test:
+  mezon-automation-testing:
     timeout-minutes: 60
     runs-on: self-hosted
+    permissions:
+      contents: read
+      actions: read
+      checks: write
     steps:
       - uses: actions/checkout@v4
 
@@ -40,15 +44,15 @@ jobs:
           echo "WORKERS=4" >> $GITHUB_ENV
 
       - name: Run Setup Tests
-        if: ${{ github.event.inputs.test_type == 'setup' || github.event.inputs.test_type == 'all' || github.event_name != 'workflow_dispatch' }}
+        if: ${{ github.event.inputs.test_type == 'setup' || github.event.inputs.test_type == 'all' }}
         run: npm run test
 
       # - name: Run BDD Tests
-      #   if: ${{ github.event.inputs.test_type == 'bdd' || github.event.inputs.test_type == 'all' || github.event_name != 'workflow_dispatch' }}
+      #   if: ${{ github.event.inputs.test_type == 'bdd' || github.event.inputs.test_type == 'all' }}
       #   run: npm run test:bdd
 
       # - name: Run Non-BDD Tests
-      #   if: ${{ github.event.inputs.test_type == 'no-bdd' || github.event.inputs.test_type == 'all' || github.event_name != 'workflow_dispatch' }}
+      #   if: ${{ github.event.inputs.test_type == 'no-bdd' || github.event.inputs.test_type == 'all' }}
       #   run: npm run test:no-bdd
 
       # - name: Run Smoke Tests

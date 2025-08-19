@@ -1,10 +1,12 @@
 # Mezon Automation Framework
 
 Comprehensive test automation framework built with **Playwright + BDD** pattern for
+
 ## 🚀 Quick Start
+
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 
 ### Installation
@@ -50,4 +52,35 @@ npm run test:traditional
 # Debug mode
 npm run test:debug
 npm run test:ui
+```
+
+## 📊 Test Reporting
+
+This project uses multiple reporting mechanisms:
+
+### GitHub Actions Reporter
+
+- **@estruyf/github-actions-reporter**: Automatically generates test summaries in GitHub Actions
+- Provides detailed test results with expandable sections
+- Shows errors, annotations, and test tags
+- Includes links to artifacts
+
+### Ortoni Reports
+
+- Custom HTML reports with charts and detailed analysis
+- Available at `ortoni-reports/index.html` after test execution
+
+### Playwright Reports
+
+- Standard Playwright HTML reports
+- Available at `playwright-report/index.html`
+
+### View Reports
+
+```bash
+# Open Ortoni report
+npm run report
+
+# Open Playwright report
+npm run report:playwright
 ```
