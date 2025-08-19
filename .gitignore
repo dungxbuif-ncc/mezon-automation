@@ -65,3 +65,7 @@ coverage/
 /playwright-report/
 /playwright/.cache/
 /playwright/.auth/
+results.json
+
+#Ignore vscode AI rules
+.github/copilot-instructions.md

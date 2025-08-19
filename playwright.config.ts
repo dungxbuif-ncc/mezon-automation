@@ -4,26 +4,27 @@ import { OrtoniReportConfig } from 'ortoni-report';
 import dotenv from 'dotenv';
 dotenv.config();
 
+const workers = parseInt(process.env.WORKERS || '1', 10) || 1;
 const reportConfig: OrtoniReportConfig = {
-  logo: "",
-  open: process.env.CI ? "never" : "always",
-  folderPath: "ortoni-reports",
-  filename: "index.html",
-  title: "Mezon Automation Test Report",
+  logo: '',
+  open: process.env.CI ? 'never' : 'always',
+  folderPath: 'ortoni-reports',
+  filename: 'index.html',
+  title: 'Mezon Automation Test Report',
   showProject: true,
-  projectName: "Mezon-Automation",
-  testType: "e2e",
-  authorName: "mezoner",
+  projectName: 'Mezon-Automation',
+  testType: 'e2e',
+  authorName: 'mezoner',
   base64Image: false,
   stdIO: false,
-  preferredTheme: "light",
-  chartType: "doughnut",
+  preferredTheme: 'light',
+  chartType: 'doughnut',
   meta: {
-    project: "Mezon Automation",
-    version: "1.0.0",
-    description: "Playwright E2E test report for Mezon platform",
-    testCycle: "Main",
-    release: "1.0.0",
+    project: 'Mezon Automation',
+    version: '1.0.0',
+    description: 'Playwright E2E test report for Mezon platform',
+    testCycle: 'Main',
+    release: '1.0.0',
     environment: process.env.BASE_URL || 'https://dev-mezon.nccsoft.vn',
   },
 };
@@ -32,7 +33,7 @@ export default defineConfig({
   testDir: './src/tests',
   // testIgnore: ['**/*.auth.spec.ts', '**/homepage.spec.ts'],
   timeout: 300 * 1000,
-  
+
   expect: {
     timeout: 10 * 1000,
   },
@@ -40,8 +41,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   fullyParallel: true,
-  workers: process.env.CI ? 1 : undefined,
-  
+  workers,
   reporter: [
     ['list'],
     ['html', { open: 'never' }],
@@ -53,10 +53,10 @@ export default defineConfig({
   // globalSetup: './src/config/global.setup.ts',
   // globalTeardown: './src/config/global.teardown.ts',
   outputDir: 'test-results/',
-    
+
   use: {
     baseURL: process.env.BASE_URL || 'https://dev-mezon.nccsoft.vn',
-    trace: 'on-first-retry',
+    trace: process.env.CI ? 'retain-on-failure' : 'on',
     video: 'retain-on-failure',
     screenshot: 'only-on-failure',
     viewport: { width: 1280, height: 720 },
@@ -73,17 +73,17 @@ export default defineConfig({
       testMatch: /.*\.setup\.ts/,
       timeout: 60 * 1000, // 1 minute for setup
     },
-    
+
     {
       name: 'chromium-no-bdd',
       testDir: './src/tests',
-      use: { 
+      use: {
         ...devices['Desktop Chrome'],
         storageState: 'playwright/.auth/user.json',
       },
       dependencies: ['setup'],
     },
-    
+
     // BDD Tests - Login flow (NO AUTH)
     {
       name: 'chromium-bdd-login',
@@ -92,13 +92,13 @@ export default defineConfig({
         steps: ['src/features/steps/*.ts', 'src/fixtures/page.fixture.ts'],
         outputDir: '.features-gen/login',
       }),
-      use: { 
-        ...devices['Desktop Chrome'], 
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1920, height: 1080 },
         // NO storageState - fresh browser for login tests
       },
     },
-    
+
     // BDD Tests - No Auth Required (homepage, simple)
     {
       name: 'chromium-bdd-no-auth',
@@ -107,42 +107,47 @@ export default defineConfig({
         steps: ['src/features/steps/*.ts', 'src/fixtures/page.fixture.ts'],
         outputDir: '.features-gen/no-auth',
       }),
-      use: { 
-        ...devices['Desktop Chrome'], 
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1920, height: 1080 },
         // NO storageState for fresh browser
       },
     },
 
-    // BDD Tests - Auth Required features  
+    // BDD Tests - Auth Required features
     {
       name: 'chromium-bdd-auth',
       testDir: defineBddConfig({
-        features: ['src/features/**/*.feature', '!src/features/userLogin.feature', '!src/features/homepage.feature', '!src/features/simple.feature'],
+        features: [
+          'src/features/**/*.feature',
+          '!src/features/userLogin.feature',
+          '!src/features/homepage.feature',
+          '!src/features/simple.feature',
+        ],
         steps: ['src/features/steps/*.ts', 'src/fixtures/page.fixture.ts'],
         outputDir: '.features-gen/auth',
       }),
-      use: { 
-        ...devices['Desktop Chrome'], 
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1920, height: 1080 },
         // Use prepared auth state
         storageState: 'playwright/.auth/user.json',
       },
       dependencies: ['setup'],
     },
-    
+
     // {
     //   name: 'firefox',
-    //   use: { 
+    //   use: {
     //     ...devices['Desktop Firefox'],
     //     storageState: 'playwright/.auth/user.json',
     //   },
     //   dependencies: ['setup'],
     // },
-    
+
     // {
     //   name: 'webkit',
-    //   use: { 
+    //   use: {
     //     ...devices['Desktop Safari'],
     //     storageState: 'playwright/.auth/user.json',
     //   },
@@ -152,16 +157,16 @@ export default defineConfig({
     // Mobile browsers
     // {
     //   name: 'Mobile Chrome',
-    //   use: { 
+    //   use: {
     //     ...devices['Pixel 5'],
     //     storageState: 'playwright/.auth/user.json',
     //   },
     //   dependencies: ['setup'],
     // },
-    
+
     // {
     //   name: 'Mobile Safari',
-    //   use: { 
+    //   use: {
     //     ...devices['iPhone 12'],
     //     storageState: 'playwright/.auth/user.json',
     //   },
@@ -171,8 +176,8 @@ export default defineConfig({
     // Microsoft Edge
     // {
     //   name: 'Microsoft Edge',
-    //   use: { 
-    //     ...devices['Desktop Edge'], 
+    //   use: {
+    //     ...devices['Desktop Edge'],
     //     channel: 'msedge',
     //     storageState: 'playwright/.auth/user.json',
     //   },
