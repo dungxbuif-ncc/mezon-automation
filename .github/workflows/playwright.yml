@@ -1,20 +1,11 @@
 name: Mezon Automation Tests
 
 on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
   workflow_dispatch:
-    inputs:
-      test_type:
-        description: 'Test suite to run'
-        required: true
-        default: 'all'
-        # type: choice
-        # options:
-        #   - all
-        #   - bdd
-        #   - no-bdd
-        #   - smoke
-        #   - regression
-        #   - setup
 
 jobs:
   test:
