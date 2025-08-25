@@ -1,9 +1,9 @@
-import { test, expect } from '@playwright/test';
-import { CategoryPage } from '../../pages/CategoryPage';
-import { HomePage } from '../../pages/HomePage';
 import { ClanPage } from '@/pages/ClanPage';
 import { OnboardingPage } from '@/pages/OnboardingPage';
+import { expect, test } from '@playwright/test';
 import { WEBSITE_CONFIGS } from '../../config/environment';
+import { CategoryPage } from '../../pages/CategoryPage';
+import { HomePage } from '../../pages/HomePage';
 
 test.describe('Create Category', () => {
   test.beforeEach(async ({ page }) => {
