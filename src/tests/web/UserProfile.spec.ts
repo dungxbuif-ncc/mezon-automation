@@ -192,42 +192,42 @@ test.describe('User Profile - Clan Profiles', () => {
     await AllureReporter.attachScreenshot(page, 'Clan Nickname Changed Successfully');
   });
 
-  test.skip('Remove avatar clan', async ({ page }) => {
-    const profilePage = new ProfilePage(page);
-    await AllureReporter.addTestParameters({
-      testType: AllureConfig.TestTypes.E2E,
-      userType: AllureConfig.UserTypes.AUTHENTICATED,
-      severity: AllureConfig.Severity.NORMAL,
-    });
+  // test.skip('Remove avatar clan', async ({ page }) => {
+  //   const profilePage = new ProfilePage(page);
+  //   await AllureReporter.addTestParameters({
+  //     testType: AllureConfig.TestTypes.E2E,
+  //     userType: AllureConfig.UserTypes.AUTHENTICATED,
+  //     severity: AllureConfig.Severity.NORMAL,
+  //   });
 
-    await AllureReporter.step('Navigate to profile tab', async () => {
-      await profilePage.openProfileTab();
-    });
+  //   await AllureReporter.step('Navigate to profile tab', async () => {
+  //     await profilePage.openProfileTab();
+  //   });
 
-    await AllureReporter.step('Navigate to clan profile tab', async () => {
-      await profilePage.openClanProfileTab();
-    });
+  //   await AllureReporter.step('Navigate to clan profile tab', async () => {
+  //     await profilePage.openClanProfileTab();
+  //   });
 
-    await AllureReporter.addDescription(`
-      **Test Objective:** Verify that a user can successfully remove their clan avatar.
-      
-      **Test Steps:**
-      1. Navigate to clan profile settings
-      2. Locate the remove/delete avatar option
-      3. Remove the current avatar
-      4. Verify the avatar has been removed
-      
-      **Expected Result:** The clan avatar should be successfully removed.
-      
-      **Note:** This test is currently skipped pending implementation.
-    `);
+  //   await AllureReporter.addDescription(`
+  //     **Test Objective:** Verify that a user can successfully remove their clan avatar.
 
-    await AllureReporter.addLabels({
-      tag: ['user-profile', 'avatar-removal', 'profile-update', 'clan-profile', 'skipped'],
-    });
+  //     **Test Steps:**
+  //     1. Navigate to clan profile settings
+  //     2. Locate the remove/delete avatar option
+  //     3. Remove the current avatar
+  //     4. Verify the avatar has been removed
 
-    // Implementation pending
-  });
+  //     **Expected Result:** The clan avatar should be successfully removed.
+
+  //     **Note:** This test is currently skipped pending implementation.
+  //   `);
+
+  //   await AllureReporter.addLabels({
+  //     tag: ['user-profile', 'avatar-removal', 'profile-update', 'clan-profile', 'skipped'],
+  //   });
+
+  //   // Implementation pending
+  // });
 
   test('Edit user profile - button visible', async ({ page }) => {
     const profilePage = new ProfilePage(page);
