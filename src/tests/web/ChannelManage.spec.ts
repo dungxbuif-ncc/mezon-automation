@@ -10,6 +10,7 @@ test.describe('Create New Channels', () => {
   let clanSetupHelper: ClanSetupHelper;
   let clanName: string;
   let clanUrl: string;
+  let cleanupFunction: () => Promise<void>;
 
   test.beforeAll(async ({ browser }) => {
     clanSetupHelper = new ClanSetupHelper(browser);
@@ -20,13 +21,14 @@ test.describe('Create New Channels', () => {
 
     clanName = setupResult.clanName;
     clanUrl = setupResult.clanUrl;
+    cleanupFunction = setupResult.cleanup;
 
     console.log(`✅ Test clan setup complete: ${clanName}`);
   });
 
-  test.afterAll(async ({ browser }) => {
-    if (clanSetupHelper) {
-      await clanSetupHelper.cleanupAllClans();
+  test.afterAll(async () => {
+    if (cleanupFunction) {
+      await cleanupFunction();
     }
   });
 
@@ -53,9 +55,7 @@ test.describe('Create New Channels', () => {
 
     // Navigate to the test clan
     await AllureReporter.step('Navigate to test clan', async () => {
-      await page.goto(clanUrl);
-      await page.waitForLoadState('domcontentloaded');
-      await page.waitForTimeout(3000);
+      await page.goto(clanUrl, { waitUntil: 'domcontentloaded' });
     });
 
     await AllureReporter.addParameter('clanName', clanName);

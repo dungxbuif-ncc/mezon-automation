@@ -18,7 +18,6 @@ export interface ClanSetupResult {
 
 export class ClanSetupHelper {
   private browser: Browser;
-  private cleanupFunctions: Array<() => Promise<void>> = [];
 
   constructor(browser: Browser) {
     this.browser = browser;
@@ -76,9 +75,6 @@ export class ClanSetupHelper {
         await this.cleanupClan(clanName, clanUrl, suiteName);
       };
 
-      // Store cleanup function for batch cleanup
-      this.cleanupFunctions.push(cleanup);
-
       await context.close();
 
       return {
@@ -134,6 +130,8 @@ export class ClanSetupHelper {
 
   /**
    * Cleans up all clans created by this helper instance
+   * @param browser Playwright browser instance
+   * @param suiteName Name of the test suite for authentication (default: 'Cleanup')
    */
   async cleanupAllClans(): Promise<void> {
     return; // for (const cleanup of this.cleanupFunctions) {

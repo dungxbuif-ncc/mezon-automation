@@ -32,7 +32,7 @@ test.describe('Create Clan', () => {
     const clanPage = new ClanPageV2(page);
     await AllureReporter.step('Navigate to direct friends page', async () => {
       await clanPage.navigate('/chat/direct/friends');
-      await page.waitForTimeout(2000);
+      await page.waitForLoadState('domcontentloaded');
     });
   });
 
@@ -101,6 +101,7 @@ test.describe('Create Category', () => {
   let clanSetupHelper: ClanSetupHelper;
   let clanName: string;
   let clanUrl: string;
+  let cleanupFunction: () => Promise<void>;
 
   test.beforeAll(async ({ browser }) => {
     clanSetupHelper = new ClanSetupHelper(browser);
@@ -109,13 +110,14 @@ test.describe('Create Category', () => {
 
     clanName = setupResult.clanName;
     clanUrl = setupResult.clanUrl;
+    cleanupFunction = setupResult.cleanup;
 
     console.log(`✅ Test clan setup complete: ${clanName}`);
   });
 
-  test.afterAll(async ({ browser }) => {
-    if (clanSetupHelper) {
-      await clanSetupHelper.cleanupAllClans();
+  test.afterAll(async () => {
+    if (cleanupFunction) {
+      await cleanupFunction();
     }
   });
 
@@ -144,7 +146,6 @@ test.describe('Create Category', () => {
     await AllureReporter.step('Navigate to test clan', async () => {
       await page.goto(clanUrl);
       await page.waitForLoadState('domcontentloaded');
-      await page.waitForTimeout(3000);
     });
 
     await AllureReporter.addParameter('clanName', clanName);

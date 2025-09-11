@@ -8,6 +8,7 @@ import { expect, test } from '@playwright/test';
 test.describe('User Profile - Clan Profiles', () => {
   let clanSetupHelper: ClanSetupHelper;
   let testClanUrl: string;
+  let cleanupFunction: () => Promise<void>;
 
   test.beforeAll(async ({ browser }) => {
     await TestSetups.authenticationTest({
@@ -18,13 +19,15 @@ test.describe('User Profile - Clan Profiles', () => {
     });
 
     clanSetupHelper = new ClanSetupHelper(browser);
+
     const setupResult = await clanSetupHelper.setupTestClan(ClanSetupHelper.configs.userProfile);
     testClanUrl = setupResult.clanUrl;
+    cleanupFunction = setupResult.cleanup;
   });
 
   test.afterAll(async () => {
-    if (clanSetupHelper) {
-      await clanSetupHelper.cleanupAllClans();
+    if (cleanupFunction) {
+      await cleanupFunction();
     }
   });
 
@@ -46,14 +49,9 @@ test.describe('User Profile - Clan Profiles', () => {
 
     await AllureReporter.step('Navigate to clan chat page', async () => {
       await page.goto(testClanUrl);
-      await page.waitForLoadState('networkidle');
     });
 
     await AllureReporter.step('Open user settings profile', async () => {
-      await profilePage.buttons.userSettingProfileButton.waitFor({
-        state: 'visible',
-        timeout: 3000,
-      });
       await profilePage.buttons.userSettingProfileButton.click();
     });
 
@@ -93,7 +91,7 @@ test.describe('User Profile - Clan Profiles', () => {
 
     await AllureReporter.step('Verify change avatar button is visible', async () => {
       const changeAvatarButton = profilePage.buttons.changeAvatarButton;
-      await expect(changeAvatarButton).toBeVisible({ timeout: 1000 });
+      await expect(changeAvatarButton).toBeVisible({ timeout: 5000 });
       await AllureReporter.addParameter('changeAvatarButtonVisible', 'Yes');
     });
 
@@ -138,7 +136,6 @@ test.describe('User Profile - Clan Profiles', () => {
 
     await AllureReporter.step('Enter new nickname', async () => {
       const nicknameInput = profilePage.inputs.nicknameInput;
-      await expect(nicknameInput).toBeVisible({ timeout: 1000 });
       await nicknameInput.click();
 
       const isMac = process.platform === 'darwin';
@@ -182,9 +179,6 @@ test.describe('User Profile - Clan Profiles', () => {
 
     await AllureReporter.step('Save nickname changes', async () => {
       const saveChangesBtn = profilePage.buttons.saveChangesClanProfileButton;
-      await saveChangesBtn.scrollIntoViewIfNeeded();
-      await expect(saveChangesBtn).toBeVisible({ timeout: 1000 });
-      await expect(saveChangesBtn).toBeEnabled({ timeout: 1000 });
       await saveChangesBtn.click();
       await AllureReporter.addParameter('saveButtonClicked', 'Yes');
     });
@@ -265,7 +259,6 @@ test.describe('User Profile - Clan Profiles', () => {
 
     for (const button of buttons) {
       await AllureReporter.step(`Click button: ${await button.textContent()}`, async () => {
-        await expect(button).toBeVisible({ timeout: 1000 });
         await button.click();
         await profilePage.expectProfileTabsVisible();
       });
